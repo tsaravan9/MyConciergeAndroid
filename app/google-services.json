@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "593079083124",
+    "project_id": "myconcierge-b4018",
+    "storage_bucket": "myconcierge-b4018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593079083124:android:bda64b53ef60cd143bf121",
+        "android_client_info": {
+          "package_name": "com.tsaravan9.myconciergeandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593079083124-jfm7rt445328esm9tpnv1ree9rgld00b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1OYodvrkTCQRnKOj8TeA3VREj6eqTG1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593079083124-jfm7rt445328esm9tpnv1ree9rgld00b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "593079083124-k17ils1vfukkrmkqp7hj45h7pu5t9kc3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.georgebrowncollegetest.MyConciergeApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
