@@ -1,167 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignupActivity">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/fName"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="44dp"
-        android:hint="Enter first name"
-        app:layout_constraintEnd_toStartOf="@+id/lName"
-        app:layout_constraintHorizontal_bias="0.391"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    </com.google.android.material.textfield.TextInputEditText>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appLogo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/logo" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/lName"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="44dp"
-        android:hint="Enter last name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.932"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_fName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
-    </com.google.android.material.textfield.TextInputEditText>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ted_fName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/first_name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/email"
-        android:layout_width="375dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:hint="Enter your email address"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fName">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_lName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
-    </com.google.android.material.textfield.TextInputEditText>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ted_lName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/last_name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/mobile"
-        android:layout_width="375dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:hint="Enter your mobile number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
-    </com.google.android.material.textfield.TextInputEditText>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ted_mail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/enter_your_email_address"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/password"
-        android:layout_width="375dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:hint="Enter your password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mobile">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ted_pass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/enter_your_password"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputEditText>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_rePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/reenterPwd"
-        android:layout_width="375dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:hint="Re-enter your password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ted_rePass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/re_enter_your_password"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputEditText>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_mob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/streetNum"
-        android:layout_width="375dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:hint="Enter your Street Number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reenterPwd"></com.google.android.material.textfield.TextInputEditText>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ted_mob"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/mobile_number"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/apartmentNum"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:hint="Apartment Number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.067"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/streetNum"></com.google.android.material.textfield.TextInputEditText>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNextToBuilding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="@string/next" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/city"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:hint="City"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.923"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/streetNum">
-
-    </com.google.android.material.textfield.TextInputEditText>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/streetName"
-        android:layout_width="375dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:hint="Enter your Street Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apartmentNum">
-
-    </com.google.android.material.textfield.TextInputEditText>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/country"
-        android:layout_width="375dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:hint="Enter your Country"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/streetName">
-
-    </com.google.android.material.textfield.TextInputEditText>
-
-    <Button
-        android:id="@+id/signupBtn"
-        android:layout_width="138dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="52dp"
-        android:text="Sign up"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country" />
-
-
-    <!--    <EditText-->
-<!--        android:id="@+id/editTextTextPersonName"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="44dp"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="Name"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:layout_editor_absoluteX="185dp" />-->
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>

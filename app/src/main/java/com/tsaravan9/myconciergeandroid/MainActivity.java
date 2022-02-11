@@ -5,38 +5,62 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.tsaravan9.myconciergeandroid.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ActivityMainBinding activityMainBinding;
+    private final String TAG = this.getClass().getCanonicalName();
+    private FirebaseAuth mAuth;
+    private SharedPreferences prefs;
+    private UsersDBRepository userdb;
+//    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        this.activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(this.activityMainBinding.getRoot());
 
-/*      Testing the firebase connection
-        db.collection("UsersCollection")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("inside", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w("inside", "Error getting documents.", task.getException());
-                        }
-                    }
-                });*/
+        activityMainBinding.btnSignIn.setOnClickListener(this);
+        activityMainBinding.btnSignup.setOnClickListener(this);
+        activityMainBinding.txtFrgtPass.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view != null) {
+            switch (view.getId()) {
+                case R.id.btnSignIn: {
+                    Log.d(TAG, "onClick: Sign In Button Clicked");
+//                    this.validateData();
+                    break;
+                }
+                case R.id.btnSignup: {
+                    Log.d(TAG, "onClick: Sign Up Button Clicked");
+                    Intent signUpIntent = new Intent(this, SignupActivity.class);
+                    startActivity(signUpIntent);
+                    break;
+                }
+                case R.id.txtFrgtPass: {
+                    Log.d(TAG, "onClick: Forgot password text Clicked");
+
+                    break;
+                }
+            }
+        }
     }
 }
