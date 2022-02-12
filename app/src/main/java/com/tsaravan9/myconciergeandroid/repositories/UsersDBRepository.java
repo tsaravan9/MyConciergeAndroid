@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.tsaravan9.myconciergeandroid.models.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,16 +29,18 @@ public class UsersDBRepository {
         DB = FirebaseFirestore.getInstance();
     }
 
-    public void addUser() {
+    public void addUser(User newUser) throws Exception {
         try {
             Map<String, Object> data = new HashMap<>();
-//            data.put(FIELD_NAME, newFriend.getName());
-//            data.put(FIELD_PHONE, newFriend.getPhoneNumber());
-//            data.put(FIELD_BIRTHDATE, newFriend.getBirthdate());
+            data.put("first name", newUser.getFirstname());
+            data.put("last name", newUser.getLastName());
+            data.put("email", newUser.getEmail());
+            data.put("pass", newUser.getPass());
+            data.put("mobile", newUser.getMobileNumber());
+            data.put("isAdmin", newUser.getAdmin());
 
-            //create subcollections containing documents
             DB.collection(COLLECTION_USERS)
-                    .document(loggedInUserEmail)
+                    .document(newUser.getEmail())
                     .set(data)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
