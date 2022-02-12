@@ -10,7 +10,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyConciergeAndroid">
         <activity
-            android:name=".MainActivity"
+            android:name=".views.admin.EnterPackageDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.admin.ResidentsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.admin.BuildingsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.resident.ActivityLogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.GlobalChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.admin.PostAnnouncementsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.AnnouncementsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.resident.PackageApprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.admin.SignupApprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.resident.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.resident.DashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,9 +52,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:exported="false"
-            android:name=".SignupActivity">
-        </activity>
+            android:name=".views.SignupActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
