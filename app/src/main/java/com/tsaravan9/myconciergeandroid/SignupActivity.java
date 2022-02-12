@@ -44,42 +44,62 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         pass = this.binding.tedPass.getText().toString().trim();
         rePass = this.binding.tedRePass.getText().toString().trim();
         mob = this.binding.tedMob.getText().toString().trim();
+        Boolean validData = false;
 
         if (fName.isEmpty()) {
             this.binding.tilFName.setError("First name cannot be empty.");
+            validData = false;
         } else {
             this.binding.tilFName.setErrorEnabled(false);
+            validData = true;
         }
         if (lName.isEmpty()) {
             this.binding.tilLName.setError("last name cannot be empty.");
+            validData = false;
         } else {
             this.binding.tilLName.setErrorEnabled(false);
+            validData = true;
         }
         if (mail.isEmpty()) {
             this.binding.tilMail.setError("E-Mail cannot be empty.");
+            validData = false;
         } else {
             this.binding.tilMail.setErrorEnabled(false);
+            validData = true;
         }
         if (pass.isEmpty()) {
             this.binding.tilPass.setError("This field cannot be empty.");
+            validData = false;
         } else {
             this.binding.tilPass.setErrorEnabled(false);
         }
         if (rePass.isEmpty()) {
             this.binding.tilRePass.setError("This field cannot be empty.");
+            validData = false;
         } else {
             this.binding.tilRePass.setErrorEnabled(false);
         }
         if (mob.isEmpty()) {
             this.binding.tilMob.setError("Mobile number cannot be empty.");
+            validData = false;
         } else {
             this.binding.tilMob.setErrorEnabled(false);
+            validData = true;
         }
-
         if (!pass.equals(rePass)) {
             this.binding.tilRePass.setError("Passwords don't match");
+            validData = false;
         } else {
             this.binding.tilRePass.setErrorEnabled(false);
+            validData = true;
         }
+
+        if(validData){
+            pushUserPersonalData();
+        }
+    }
+
+    private void pushUserPersonalData() {
+
     }
 }
