@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             userdb.loggedInUserEmail = email;
                             saveToPrefs(email, password);
 //                            usersViewModel.getAllFriends();
-                            gotToBuildingsListPage();
-                            //goToDashboardPage();
+                            //gotToBuildingsListPage();
+                            goToDashboardPage();
                         } else {
                             Log.e(TAG, "onComplete: Sign In Failed", task.getException());
                             Snackbar.make(activityMainBinding.llc, "Authentication Failed", Snackbar.LENGTH_SHORT).show();

@@ -19,8 +19,8 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="265dp"
-        android:layout_height="35dp"
+        android:layout_width="241dp"
+        android:layout_height="33dp"
         android:layout_marginTop="28dp"
         android:text="Rahul Vashist"
         android:textColor="@color/black"
@@ -32,8 +32,8 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="265dp"
-        android:layout_height="30dp"
+        android:layout_width="238dp"
+        android:layout_height="31dp"
         android:layout_marginTop="8dp"
         android:text="rhlvashist@gmail.com"
         android:textSize="18dp"
