@@ -3,10 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_bottom_navigation.xml" value="0.23802083333333332" />
-        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.23802083333333332" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21866302490234377" />
-        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.2575912475585938" />
+        <entry key="..\:/PC/Education/AndroidPrograms/MyConciergeAndroid/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_buildings_list.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/activity_residents_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/building_item.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/resident_item.xml" value="0.1" />
       </map>
     </option>
   </component>

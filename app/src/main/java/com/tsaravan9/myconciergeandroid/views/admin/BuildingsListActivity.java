@@ -1,22 +1,17 @@
 package com.tsaravan9.myconciergeandroid.views.admin;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityBuildingsListBinding;
-import com.tsaravan9.myconciergeandroid.databinding.ActivitySignupBinding;
 import com.tsaravan9.myconciergeandroid.models.Building;
+import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 import com.tsaravan9.myconciergeandroid.views.BuildingAdapter;
 
@@ -26,6 +21,7 @@ public class BuildingsListActivity extends AppCompatActivity {
 
     private ActivityBuildingsListBinding binding;
     private UsersViewModel usersViewModel;
+    private UsersDBRepository usersDBRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +37,7 @@ public class BuildingsListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         usersViewModel = UsersViewModel.getInstance(this.getApplication());
+        usersDBRepository = usersViewModel.getUserRepository();
         usersViewModel.getAllBuildings();
         usersViewModel.allBuildings.observe(this, new Observer<List<Building>>() {
             @Override
@@ -69,8 +66,8 @@ public class BuildingsListActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new BuildingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Building building) {
+                BuildingsListActivity.this.usersDBRepository.currentBuilding = building.getAddress();
                 Intent intent = new Intent(BuildingsListActivity.this, ResidentsListActivity.class);
-                //put extras
                 startActivity(intent);
             }
         });

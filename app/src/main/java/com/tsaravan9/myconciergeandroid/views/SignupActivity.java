@@ -123,7 +123,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             try {
-                                UsersViewModel.getInstance(getApplication()).addFriend(newUser);
+                                UsersViewModel.getInstance(getApplication()).addUser(newUser);
                                 Toast.makeText(SignupActivity.this, "Sign up Successful", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                                 startActivity(intent);

@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         prefs = getApplicationContext().getSharedPreferences(getPackageName(), MODE_PRIVATE);
         this.mAuth = FirebaseAuth.getInstance();
         this.usersViewModel = UsersViewModel.getInstance(this.getApplication());
-        this.userdb = this.usersViewModel.getFriendRepository();
+        this.userdb = this.usersViewModel.getUserRepository();
 
         activityMainBinding.btnSignIn.setOnClickListener(this);
         activityMainBinding.btnSignup.setOnClickListener(this);

@@ -31,7 +31,8 @@ public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.Buildi
     @Override
     public void onBindViewHolder(@NonNull BuildingHolder holder, int position) {
         Building currentBuilding = buildings.get(position);
-        holder.textViewName.setText(currentBuilding.getName());
+        //manipulate address
+        holder.textViewName.setText(currentBuilding.getAddress());
         //set total residents here
         holder.textViewTotalResidents.setText("5");
         //change image later
@@ -43,8 +44,8 @@ public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.Buildi
         return buildings.size();
     }
 
-    public void setBuildings(List<Building> notes) {
-        this.buildings = notes;
+    public void setBuildings(List<Building> buildings) {
+        this.buildings = buildings;
         notifyDataSetChanged();
     }
 

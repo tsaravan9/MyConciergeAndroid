@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Building {
 
-    private String name;
     private String image;
     private ArrayList<String> residents;
     private String address;
@@ -12,8 +11,7 @@ public class Building {
     private ArrayList<String> announcements;
     private String id;
 
-    public Building(String name, String image, ArrayList<String> residents, String address, ArrayList<String> admins, ArrayList<String> announcements) {
-        this.name = name;
+    public Building(String image, ArrayList<String> residents, String address, ArrayList<String> admins, ArrayList<String> announcements, String id) {
         this.image = image;
         this.residents = residents;
         this.address = address;
@@ -32,14 +30,6 @@ public class Building {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getImage() {
