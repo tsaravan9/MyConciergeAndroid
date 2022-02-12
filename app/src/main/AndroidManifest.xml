@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyConciergeAndroid">
         <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -19,9 +22,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:exported="false"
-            android:name=".SignupActivity">
-        </activity>
+            android:name=".SignupActivity"
+            android:exported="false"></activity>
     </application>
 
 </manifest>
