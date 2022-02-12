@@ -1,4 +1,4 @@
-package com.tsaravan9.myconciergeandroid;
+package com.tsaravan9.myconciergeandroid.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivitySignupBinding;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {

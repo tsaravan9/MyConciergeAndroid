@@ -1,8 +1,10 @@
-package com.tsaravan9.myconciergeandroid;
+package com.tsaravan9.myconciergeandroid.views.resident;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.tsaravan9.myconciergeandroid.R;
 
 public class DashboardActivity extends AppCompatActivity {
 
