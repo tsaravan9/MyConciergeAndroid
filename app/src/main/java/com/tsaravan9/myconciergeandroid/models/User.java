@@ -2,16 +2,17 @@ package com.tsaravan9.myconciergeandroid.models;
 
 public class User {
     private String firstname = "";
-    private String lastName = "";
+    private String lastname = "";
     private String email = "";
     private String pass = "";
     private int mobileNumber = 0;
     private String address = "";
     private Boolean isAdmin = false;
+    private String apartment;
 
     public User(String firstname, String lastName, String email, String pass, int mobileNumber, Boolean isAdmin) {
         this.firstname = firstname;
-        this.lastName = lastName;
+        this.lastname = lastName;
         this.email = email;
         this.pass = pass;
         this.mobileNumber = mobileNumber;
@@ -20,12 +21,35 @@ public class User {
 
     public User(String firstname, String lastName, String email, String pass, int mobileNumber, String address, Boolean isAdmin) {
         this.firstname = firstname;
-        this.lastName = lastName;
+        this.lastname = lastName;
         this.email = email;
         this.pass = pass;
         this.mobileNumber = mobileNumber;
         this.address = address;
         this.isAdmin = isAdmin;
+    }
+
+    public User(String firstname, String lastName, String email, String pass, int mobileNumber, String address, Boolean isAdmin, String apartment) {
+        this.firstname = firstname;
+        this.lastname = lastName;
+        this.email = email;
+        this.pass = pass;
+        this.mobileNumber = mobileNumber;
+        this.address = address;
+        this.isAdmin = isAdmin;
+        this.apartment = apartment;
+    }
+
+    public User(){
+
+    }
+
+    public String getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(String apartment) {
+        this.apartment = apartment;
     }
 
     public String getAddress() {
@@ -52,12 +76,12 @@ public class User {
         this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -88,7 +112,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "firstname='" + firstname + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", lastName='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", pass='" + pass + '\'' +
                 ", mobileNumber=" + mobileNumber +

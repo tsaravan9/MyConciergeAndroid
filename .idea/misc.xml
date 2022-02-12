@@ -15,6 +15,10 @@
         <entry key="app/src/main/res/layout/fragment_accept_reject.xml" value="0.21611721611721613" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.10729166666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25480499267578127" />
+        <entry key="app/src/main/res/layout/activity_buildings_list.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/activity_residents_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/building_item.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/resident_item.xml" value="0.1" />
       </map>
     </option>
   </component>
