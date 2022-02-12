@@ -19,6 +19,7 @@ import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityMainBinding;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
+import com.tsaravan9.myconciergeandroid.views.admin.BuildingsListActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -118,7 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             userdb.loggedInUserEmail = email;
                             saveToPrefs(email, password);
 //                            usersViewModel.getAllFriends();
-                            goToDashboardPage();
+                            gotToBuildingsListPage();
+                            //goToDashboardPage();
                         } else {
                             Log.e(TAG, "onComplete: Sign In Failed", task.getException());
                             Snackbar.make(activityMainBinding.llc, "Authentication Failed", Snackbar.LENGTH_SHORT).show();
@@ -144,6 +146,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void goToDashboardPage() {
         Intent intent = new Intent(this, BottomNavigationActivity.class);
+        startActivity(intent);
+    }
+
+    private void gotToBuildingsListPage(){
+        Log.d(TAG, "whattttt");
+        Intent intent = new Intent(this, BuildingsListActivity.class);
         startActivity(intent);
     }
 }
