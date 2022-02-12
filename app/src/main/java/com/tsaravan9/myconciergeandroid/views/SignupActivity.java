@@ -1,13 +1,18 @@
 package com.tsaravan9.myconciergeandroid.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivitySignupBinding;
@@ -105,17 +110,32 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         //TODO: check if the account already exists or not with email
         if (validData) {
             User newUser = new User(fName, lName, mail, pass, mob, false);
-            try {
-                UsersViewModel.getInstance(this.getApplication()).addFriend(newUser);
-                Toast.makeText(this, "Sign up Successful", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                startActivity(intent);
-            } catch (Exception e) {
-                Snackbar.make(this.binding.llSignUp, "There was a problem creating your account, Please try again later", Snackbar.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
+            createAcccount(newUser);
         } else {
             Snackbar.make(this.binding.llSignUp, "Please provide valid details", Snackbar.LENGTH_SHORT).show();
         }
+    }
+
+    private void createAcccount(User newUser) {
+        mAuth.createUserWithEmailAndPassword(newUser.getEmail(), newUser.getPass())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            try {
+                                UsersViewModel.getInstance(getApplication()).addFriend(newUser);
+                                Toast.makeText(SignupActivity.this, "Sign up Successful", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                Snackbar.make(binding.llSignUp, "There was a problem creating your account, Please try again later", Snackbar.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Log.e(TAG, "onComplete: Failed to create user with email and password" + task.getException() + task.getException().getLocalizedMessage());
+                            Snackbar.make(binding.llSignUp, "Authentication Failed", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
