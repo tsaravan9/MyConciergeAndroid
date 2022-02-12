@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyConciergeAndroid">
         <activity
+            android:name=".views.BottomNavigationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_bottom_navigation" />
+        <activity
             android:name=".views.admin.EnterPackageDetailsActivity"
             android:exported="false" />
         <activity
