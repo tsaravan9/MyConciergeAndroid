@@ -124,8 +124,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         if (task.isSuccessful()) {
                             try {
                                 UsersViewModel.getInstance(getApplication()).addUser(newUser);
+                                UsersViewModel.getInstance(getApplication()).getAllBuildingsList();
                                 Toast.makeText(SignupActivity.this, "Sign up Successful", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                                Intent intent = new Intent(SignupActivity.this, RegisterBuildingToUserActivity.class);
                                 startActivity(intent);
                             } catch (Exception e) {
                                 Snackbar.make(binding.llSignUp, "There was a problem creating your account, Please try again later", Snackbar.LENGTH_SHORT).show();

@@ -15,9 +15,10 @@ import java.util.List;
 public class UsersViewModel extends AndroidViewModel {
     private static UsersViewModel ourInstance;
     private final UsersDBRepository usersDBRepository = new UsersDBRepository();
-//    public MutableLiveData<List<User>> allUsers;
+    //    public MutableLiveData<List<User>> allUsers;
     public MutableLiveData<List<Building>> allBuildings;
     public MutableLiveData<List<User>> allResidents;
+    public MutableLiveData<List<String>> allbuildingsList;
 
 
     public UsersViewModel(@NonNull Application application) {
@@ -39,14 +40,19 @@ public class UsersViewModel extends AndroidViewModel {
         this.usersDBRepository.addUser(newUser);
     }
 
-    public void getAllBuildings(){
+    public void getAllBuildings() {
         this.usersDBRepository.getAllBuildings();
         this.allBuildings = this.usersDBRepository.allBuildings;
     }
 
-    public void getAllResidents(){
+    public void getAllResidents() {
         this.usersDBRepository.getAllResidents();
         this.allResidents = this.usersDBRepository.allResidents;
+    }
+
+    public void getAllBuildingsList() throws Exception {
+        this.usersDBRepository.getAllBuildingsList();
+        this.allbuildingsList = this.usersDBRepository.allBuildingList;
     }
 
 }
