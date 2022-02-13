@@ -71,4 +71,16 @@ public class Building {
     public void setAnnouncements(ArrayList<String> announcements) {
         this.announcements = announcements;
     }
+
+    @Override
+    public String toString() {
+        return "Building{" +
+                "image='" + image + '\'' +
+                ", residents=" + residents +
+                ", address='" + address + '\'' +
+                ", admins=" + admins +
+                ", announcements=" + announcements +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }
