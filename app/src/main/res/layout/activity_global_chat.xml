@@ -25,14 +25,15 @@
             android:id="@+id/edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Text"/>
+            android:hint="Enter Text" />
 
         <Button
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_marginLeft=""/>
 
     </LinearLayout>
 

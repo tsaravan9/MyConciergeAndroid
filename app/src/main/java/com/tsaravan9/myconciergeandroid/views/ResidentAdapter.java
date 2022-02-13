@@ -37,7 +37,7 @@ public class ResidentAdapter extends RecyclerView.Adapter<ResidentAdapter.Reside
         //set total residents here
         holder.textViewApartmentNumber.setText(currentUser.getApartment());
         //change image later
-        holder.imageViewResidentImage.setImageResource(R.drawable.common_google_signin_btn_icon_dark);
+        holder.imageViewResidentImage.setImageResource(R.drawable.man);
     }
 
     @Override

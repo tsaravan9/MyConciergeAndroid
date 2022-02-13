@@ -8,85 +8,114 @@
 
     <TextView
         android:id="@+id/tv_switch_package"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="248dp"
+        android:text="Package"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/switch_package_visitor"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_package_name"
-        android:text="Package"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_switch_visitor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/switch_package_visitor"
+        android:layout_width="64dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="248dp"
+        android:text="Visitor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_package_name"
-        android:text="Visitor"/>
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
         android:id="@+id/switch_package_visitor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="57dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="240dp"
         android:enabled="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_package_name"/>
+        app:layout_constraintEnd_toStartOf="@+id/tv_switch_visitor"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toEndOf="@+id/tv_switch_package"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_package_name"
+        android:layout_width="271dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="48dp"
         android:text="Package Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/switch_package_visitor"
-        app:layout_constraintBottom_toTopOf="@id/edit_package_name"/>
+        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_switch_package" />
 
     <EditText
         android:id="@+id/edit_package_name"
+        android:layout_width="373dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
         android:hint="Enter Package Name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_package_name"
-        app:layout_constraintBottom_toTopOf="@+id/tv_package_description"/>
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_package_name" />
 
     <TextView
         android:id="@+id/tv_package_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="281dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="44dp"
         android:text="Package Description"
-        app:layout_constraintBottom_toTopOf="@id/edit_package_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintHorizontal_bias="0.138"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_package_name" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_package_name" />
 
     <EditText
         android:id="@+id/edit_package_description"
+        android:layout_width="373dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
         android:hint="Enter Package Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_package_description"
-        app:layout_constraintBottom_toTopOf="@id/btn_submit_package"/>
+        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_package_description" />
 
     <Button
         android:id="@+id/btn_submit_package"
-        android:text="Submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="44dp"
+        android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_package_description"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_package_description" />
 
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="107dp"
+        android:layout_height="109dp"
+        app:srcCompat="@drawable/newpackage"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="88dp"
+        android:layout_height="90dp"
+        app:srcCompat="@drawable/fastfood"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="93dp"
+        android:layout_height="99dp"
+        app:srcCompat="@drawable/visitors"
+        tools:layout_editor_absoluteX="253dp"
+        tools:layout_editor_absoluteY="71dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

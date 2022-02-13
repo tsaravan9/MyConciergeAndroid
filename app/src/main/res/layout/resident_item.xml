@@ -8,37 +8,36 @@
 
     <LinearLayout
         android:id="@+id/resident_text_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_width="289dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="100dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginStart="200dp"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/resident_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:text="Name" />
 
         <TextView
             android:id="@+id/resident_apartment_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apartment"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="Apartment" />
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/resident_img"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/common_google_signin_btn_icon_dark"
+        android:layout_width="59dp"
+        android:layout_height="60dp"
         android:layout_gravity="left"
-        android:layout_marginEnd="300dp"/>
+        android:layout_marginEnd="300dp"
+        android:src="@drawable/man" />
 
 
 </androidx.cardview.widget.CardView>
