@@ -42,10 +42,13 @@ public class UsersDBRepository {
     public String currentBuilding = "";
     public String currentResident = "";
     public MutableLiveData<List<Building>> allBuildings = new MutableLiveData<>();
+    public MutableLiveData<List<Announcement>> allAnnouncements = new MutableLiveData<>();
     public MutableLiveData<List<User>> allResidents = new MutableLiveData<>();
     public MutableLiveData<List<String>> allBuildingList = new MutableLiveData<>();
     public MutableLiveData<List<Text>> allTexts = new MutableLiveData<>();
+    public MutableLiveData<List<Delivery>> allDeliveries = new MutableLiveData<>();
     public MutableLiveData<User> userFromDB = new MutableLiveData<>();
+
 
     private final String COLLECTION_BUILDINGS = "Buildings";
     private final String COLLECTION_CHAT = "Chat";
@@ -248,6 +251,7 @@ public class UsersDBRepository {
             data.put("description", newPackage.getDescription());
             data.put("isVisitor", newPackage.getVisitor());
             data.put("isAccepted", newPackage.getAccepted());
+            data.put("enteredAt", newPackage.getEnteredAt());
 
             DB.collection(COLLECTION_USERS)
                     .document(currentResident)
@@ -275,6 +279,7 @@ public class UsersDBRepository {
             Map<String, Object> data = new HashMap<>();
             data.put("title", newAnnouncement.getTitle());
             data.put("description", newAnnouncement.getDescription());
+            data.put("postedAt", newAnnouncement.getPostedAt());
 
             DB.collection(COLLECTION_BUILDINGS)
                     .whereEqualTo(FIELD_ADDRESS, currentBuilding)
@@ -462,6 +467,172 @@ public class UsersDBRepository {
             Log.e(TAG, "searchFriendByName: Exception occured " + ex.getLocalizedMessage() );
         }
     }
+
+    public void getAllAnnouncements(){
+        try{
+            DB.collection(COLLECTION_BUILDINGS)
+                    .whereEqualTo(FIELD_ADDRESS, currentBuilding)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().getDocuments().size() != 0){
+                                    DB.collection(COLLECTION_BUILDINGS)
+                                            .document(task.getResult().getDocuments().get(0).getId())
+                                            .collection(COLLECTION_ANNOUNCEMENTS)
+                                            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+                                                    if (error != null){
+                                                        Log.e(TAG, "onEvent: Unable to get document changes " + error );
+                                                        return;
+                                                    }
+
+                                                    List<Announcement> announcementList = new ArrayList<>();
+
+                                                    if (snapshot != null){
+                                                        Log.d(TAG, "onEvent: Current Changes " + snapshot.getDocumentChanges());
+
+                                                        for (DocumentChange documentChange: snapshot.getDocumentChanges()){
+
+                                                            Announcement currentAnnouncement = documentChange.getDocument().toObject(Announcement.class);
+                                                            switch (documentChange.getType()){
+                                                                case ADDED:
+                                                                    announcementList.add(currentAnnouncement);
+                                                                    break;
+                                                                case MODIFIED:
+                                                                    announcementList.add(currentAnnouncement);
+                                                                    //TODO - search in friendList for existing object and replace it with new one - currentFriend
+                                                                    break;
+                                                                case REMOVED:
+                                                                    announcementList.remove(currentAnnouncement);
+                                                                    break;
+                                                            }
+                                                        }
+                                                        Log.d("UserRepo", announcementList.toString());
+                                                        allAnnouncements.postValue(announcementList);
+
+                                                    }else{
+                                                        Log.e(TAG, "onEvent: No changes received");
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Failed", "Document Not Found");
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "addFriend: " + ex.getLocalizedMessage());
+        }
+    }
+
+    public void getAllDeliveries(){
+        try{
+            DB.collection(COLLECTION_USERS)
+                    .document(loggedInUserEmail)
+                    .collection(COLLECTION_PACKAGES)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+                            if (error != null){
+                                Log.e(TAG, "onEvent: Unable to get document changes " + error );
+                                return;
+                            }
+
+                            List<Delivery> deliveryList = new ArrayList<>();
+
+                            if (snapshot != null){
+                                Log.d(TAG, "onEvent: Current Changes " + snapshot.getDocumentChanges());
+
+                                for (DocumentChange documentChange: snapshot.getDocumentChanges()){
+
+                                    Delivery currentDelivery = documentChange.getDocument().toObject(Delivery.class);
+                                    Log.d(TAG, "onEvent: currentUser : " + currentDelivery.toString());
+
+                                    switch (documentChange.getType()){
+                                        case ADDED:
+                                            deliveryList.add(currentDelivery);
+                                            break;
+                                        case MODIFIED:
+                                            //TODO - search in friendList for existing object and replace it with new one - currentFriend
+                                            break;
+                                        case REMOVED:
+                                            deliveryList.remove(currentDelivery);
+                                            break;
+                                    }
+                                }
+
+                                allDeliveries.postValue(deliveryList);
+
+                            }else{
+                                Log.e(TAG, "onEvent: No changes received");
+                            }
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "addFriend: 123" + ex.getLocalizedMessage());
+        }
+    }
+
+    public void updateDelivery(Delivery updatedDelivery){
+        Map<String, Object> updatedInfo = new HashMap<>();
+        updatedInfo.put("accepted", updatedDelivery.getAccepted());
+
+        try{
+            DB.collection(COLLECTION_USERS)
+                    .document(loggedInUserEmail)
+                    .collection(COLLECTION_PACKAGES)
+                    .whereEqualTo("enteredAt", updatedDelivery.getEnteredAt())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().getDocuments().size() != 0){
+                                    DB.collection(COLLECTION_USERS)
+                                            .document(loggedInUserEmail)
+                                            .collection(COLLECTION_PACKAGES)
+                                            .document(task.getResult().getDocuments().get(0).getId())
+                                            .update(updatedInfo)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d(TAG, "onSuccess: Document successfully updated");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e(TAG, "onFailure: Unable to update document" + e.getLocalizedMessage());
+                                                }
+                                            });
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Failed", "Document Not Found");
+                        }
+                    });
+        }catch(Exception ex){
+            Log.e(TAG, "updateFriend: Exception occured " + ex.getLocalizedMessage() );
+        }
+    }
+
+
+
+
+
+
 
 
 

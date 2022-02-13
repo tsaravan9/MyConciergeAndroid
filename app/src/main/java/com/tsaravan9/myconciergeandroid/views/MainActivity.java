@@ -2,6 +2,7 @@ package com.tsaravan9.myconciergeandroid.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,10 +16,16 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tsaravan9.myconciergeandroid.R;
+import com.tsaravan9.myconciergeandroid.models.Announcement;
+import com.tsaravan9.myconciergeandroid.models.Delivery;
+import com.tsaravan9.myconciergeandroid.models.Text;
+import com.tsaravan9.myconciergeandroid.models.User;
 import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityMainBinding;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 import com.tsaravan9.myconciergeandroid.views.admin.BuildingsListActivity;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences prefs;
     private UsersDBRepository userdb;
     private UsersViewModel usersViewModel;
+    private User matchedUser;
 //    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -62,8 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (view.getId()) {
                 case R.id.btnSignIn: {
                     Log.d(TAG, "onClick: Sign In Button Clicked");
-                    //this.validateData();
-                    goToDashboardPage();
+                    this.validateData();
+                    //goToDashboardPage();
                     break;
                 }
                 case R.id.btnSignup: {
@@ -118,9 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.d(TAG, "onComplete: Sign In Successful");
                             userdb.loggedInUserEmail = email;
                             saveToPrefs(email, password);
-//                            usersViewModel.getAllFriends();
-                            gotToBuildingsListPage();
-                            //goToDashboardPage();
+                            //goToBuildingsListPage();
+                            goToDashboardPage();
                         } else {
                             Log.e(TAG, "onComplete: Sign In Failed", task.getException());
                             Snackbar.make(activityMainBinding.llc, "Authentication Failed", Snackbar.LENGTH_SHORT).show();
@@ -130,27 +137,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void saveToPrefs(String email, String password) {
-
-        if (this.activityMainBinding.chkBox.isChecked()) {
-            prefs.edit().putString("USER_EMAIL", email).apply();
-            prefs.edit().putString("USER_PASSWORD", password).apply();
-        } else {
-            if (prefs.contains("USER_EMAIL")) {
-                prefs.edit().remove("USER_EMAIL").apply();
-            }
-            if (prefs.contains("USER_PASSWORD")) {
-                prefs.edit().remove("USER_PASSWORD").apply();
-            }
-        }
+        prefs.edit().putString("USER_EMAIL", email).apply();
+//        if (this.activityMainBinding.chkBox.isChecked()) {
+//            prefs.edit().putString("USER_EMAIL", email).apply();
+//            prefs.edit().putString("USER_PASSWORD", password).apply();
+//        } else {
+//            if (prefs.contains("USER_EMAIL")) {
+//                prefs.edit().remove("USER_EMAIL").apply();
+//            }
+//            if (prefs.contains("USER_PASSWORD")) {
+//                prefs.edit().remove("USER_PASSWORD").apply();
+//            }
+//        }
     }
 
     private void goToDashboardPage() {
+        //this.testingDeliveries();
+        //this.testingAnnouncements();
         Intent intent = new Intent(this, BottomNavigationActivity.class);
         startActivity(intent);
     }
 
-    private void gotToBuildingsListPage(){
+    private void goToBuildingsListPage(){
         Intent intent = new Intent(this, BuildingsListActivity.class);
         startActivity(intent);
     }
+
+    //temporary method
+    private void testingDeliveries(){
+        Log.d("email test", prefs.getString("USER_EMAIL", ""));
+        usersViewModel.getUserRepository().loggedInUserEmail = prefs.getString("USER_EMAIL", "");
+        usersViewModel.getAllDeliveries();
+        usersViewModel.allDeliveries.observe(this, new Observer<List<Delivery>>() {
+            @Override
+            public void onChanged(List<Delivery> deliveries) {
+                for (Delivery delivery : deliveries){
+                    Log.d("testMe", delivery.toString());
+                    if (delivery.getVisitor()){
+                        delivery.setAccepted(true);
+                        usersViewModel.updateDelivery(delivery);
+                    }
+                }
+            }
+        });
+    }
+
+    //temporary method
+    private void testingAnnouncements(){
+        usersViewModel.getUserRepository().loggedInUserEmail = prefs.getString("USER_EMAIL", "");
+        usersViewModel.searchUserByEmail(usersViewModel.getUserRepository().loggedInUserEmail);
+        this.usersViewModel.getUserRepository().userFromDB.observe(MainActivity.this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                matchedUser = user;
+                usersViewModel.getUserRepository().currentBuilding = matchedUser.getAddress();
+                usersViewModel.getAllAnnouncements();
+                usersViewModel.allAnnouncements.observe(MainActivity.this, new Observer<List<Announcement>>() {
+                    @Override
+                    public void onChanged(List<Announcement> announcements) {
+                        for (Announcement announcement : announcements)
+                            Log.d("testMe", announcement.toString());
+                    }
+                });
+            }
+        });
+    }
+
 }

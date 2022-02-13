@@ -35,9 +35,6 @@
             android:name=".views.admin.PostAnnouncementsActivity"
             android:exported="false" />
         <activity
-            android:name=".views.AnnouncementsActivity"
-            android:exported="false" />
-        <activity
             android:name=".views.resident.PackageApprovalActivity"
             android:exported="false" />
         <activity

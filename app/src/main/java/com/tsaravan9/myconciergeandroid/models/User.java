@@ -7,7 +7,7 @@ public class User {
     private String pass = "";
     private int mobileNumber = 0;
     private String address = "";
-    private Boolean isAdmin = false;
+    private Boolean admin = false;
     private String apartment;
 
     public User(String firstname, String lastName, String email, String pass, int mobileNumber, Boolean isAdmin) {
@@ -16,7 +16,7 @@ public class User {
         this.email = email;
         this.pass = pass;
         this.mobileNumber = mobileNumber;
-        this.isAdmin = isAdmin;
+        this.admin = isAdmin;
     }
 
     public User(String firstname, String lastName, String email, String pass, int mobileNumber, String address, Boolean isAdmin) {
@@ -26,7 +26,7 @@ public class User {
         this.pass = pass;
         this.mobileNumber = mobileNumber;
         this.address = address;
-        this.isAdmin = isAdmin;
+        this.admin = isAdmin;
     }
 
     public User(String firstname, String lastName, String email, String pass, int mobileNumber, String address, Boolean isAdmin, String apartment) {
@@ -36,7 +36,7 @@ public class User {
         this.pass = pass;
         this.mobileNumber = mobileNumber;
         this.address = address;
-        this.isAdmin = isAdmin;
+        this.admin = isAdmin;
         this.apartment = apartment;
     }
 
@@ -61,11 +61,11 @@ public class User {
     }
 
     public Boolean getAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public void setAdmin(Boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 
     public String getFirstname() {
@@ -117,7 +117,7 @@ public class User {
                 ", pass='" + pass + '\'' +
                 ", mobileNumber=" + mobileNumber +
                 ", address='" + address + '\'' +
-                ", isAdmin=" + isAdmin +
+                ", isAdmin=" + admin +
                 '}';
     }
 }

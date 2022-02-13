@@ -1,16 +1,28 @@
 package com.tsaravan9.myconciergeandroid.views.ui.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tsaravan9.myconciergeandroid.databinding.FragmentHomeBinding;
+import com.tsaravan9.myconciergeandroid.models.Announcement;
+import com.tsaravan9.myconciergeandroid.models.User;
+import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
+import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
+import com.tsaravan9.myconciergeandroid.views.resident.DashboardActivity;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -34,4 +46,5 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }

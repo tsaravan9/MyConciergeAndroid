@@ -65,7 +65,7 @@ public class PostAnnouncementsActivity extends AppCompatActivity implements View
         }
 
         if (validData){
-            Announcement announcement = new Announcement(name, description);
+            Announcement announcement = new Announcement(name, description, System.currentTimeMillis());
             this.usersViewModel.addAnnouncement(announcement);
             Toast.makeText(this, "Announcement Posted!", Toast.LENGTH_SHORT).show();
             this.binding.editAnnouncementTitle.setText("");

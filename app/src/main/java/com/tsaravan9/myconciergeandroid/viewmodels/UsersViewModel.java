@@ -21,6 +21,8 @@ public class UsersViewModel extends AndroidViewModel {
     //    public MutableLiveData<List<User>> allUsers;
     public MutableLiveData<List<Building>> allBuildings;
     public MutableLiveData<List<User>> allResidents;
+    public MutableLiveData<List<Delivery>> allDeliveries;
+    public MutableLiveData<List<Announcement>> allAnnouncements;
     public MutableLiveData<List<String>> allbuildingsList;
 
     public MutableLiveData<List<Text>> allTexts;
@@ -74,6 +76,20 @@ public class UsersViewModel extends AndroidViewModel {
     public void getAllTexts(){
         this.usersDBRepository.getAllTexts();
         this.allTexts = this.usersDBRepository.allTexts;
+    }
+
+    public void getAllDeliveries(){
+        this.usersDBRepository.getAllDeliveries();
+        this.allDeliveries = this.usersDBRepository.allDeliveries;
+    }
+
+    public void getAllAnnouncements(){
+        this.usersDBRepository.getAllAnnouncements();
+        this.allAnnouncements = this.usersDBRepository.allAnnouncements;
+    }
+
+    public void updateDelivery(Delivery updatedDelivery){
+        this.usersDBRepository.updateDelivery(updatedDelivery);
     }
 
     public void searchUserByEmail(String email){

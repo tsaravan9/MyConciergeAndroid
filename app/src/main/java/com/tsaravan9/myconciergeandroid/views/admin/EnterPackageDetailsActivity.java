@@ -91,7 +91,7 @@ public class EnterPackageDetailsActivity extends AppCompatActivity implements Vi
         }
 
         if (validData){
-            Delivery delivery = new Delivery(name, description, this.isVisitor);
+            Delivery delivery = new Delivery(name, description, this.isVisitor, System.currentTimeMillis());
             this.usersViewModel.addPackage(delivery);
             Toast.makeText(this, "Information Submitted!", Toast.LENGTH_SHORT).show();
             this.binding.editPackageName.setText("");

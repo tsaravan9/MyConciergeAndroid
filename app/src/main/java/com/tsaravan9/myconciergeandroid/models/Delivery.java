@@ -1,16 +1,20 @@
 package com.tsaravan9.myconciergeandroid.models;
 
+import com.google.firebase.firestore.PropertyName;
+
 public class Delivery {
     private String name;
     private String description;
-    private Boolean isVisitor;
-    private Boolean isAccepted;
+    private Boolean visitor;
+    private Boolean accepted;
+    private Long enteredAt;
 
-    public Delivery(String name, String description, Boolean isVisitor) {
+    public Delivery(String name, String description, Boolean isVisitor, Long enteredAt) {
         this.name = name;
         this.description = description;
-        this.isVisitor = isVisitor;
-        this.isAccepted = false;
+        this.visitor = isVisitor;
+        this.accepted = false;
+        this.enteredAt = enteredAt;
     }
 
     public Delivery(){
@@ -18,11 +22,11 @@ public class Delivery {
     }
 
     public Boolean getAccepted() {
-        return isAccepted;
+        return accepted;
     }
 
     public void setAccepted(Boolean accepted) {
-        isAccepted = accepted;
+        this.accepted = accepted;
     }
 
     public String getName() {
@@ -42,10 +46,29 @@ public class Delivery {
     }
 
     public Boolean getVisitor() {
-        return isVisitor;
+        return visitor;
     }
 
     public void setVisitor(Boolean visitor) {
-        isVisitor = visitor;
+        this.visitor = visitor;
+    }
+
+    public Long getEnteredAt() {
+        return enteredAt;
+    }
+
+    public void setEnteredAt(Long enteredAt) {
+        this.enteredAt = enteredAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Delivery{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", isVisitor=" + visitor +
+                ", isAccepted=" + accepted +
+                ", enteredAt=" + enteredAt +
+                '}';
     }
 }
