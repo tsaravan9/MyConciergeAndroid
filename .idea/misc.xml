@@ -19,6 +19,14 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25480499267578127" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3040751139322917" />
+        
+        <entry key="app/src/main/res/layout/activity_buildings_list.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/activity_enter_package_details.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_global_chat.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_post_announcements.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_residents_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/building_item.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/resident_item.xml" value="0.1" />
       </map>
     </option>
   </component>

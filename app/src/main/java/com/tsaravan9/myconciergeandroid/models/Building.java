@@ -8,10 +8,10 @@ public class Building {
     private ArrayList<String> residents;
     private String address;
     private ArrayList<String> admins;
-    private ArrayList<String> announcements;
+    private ArrayList<Announcement> announcements;
     private String id;
 
-    public Building(String image, ArrayList<String> residents, String address, ArrayList<String> admins, ArrayList<String> announcements, String id) {
+    public Building(String image, ArrayList<String> residents, String address, ArrayList<String> admins, ArrayList<Announcement> announcements, String id) {
         this.image = image;
         this.residents = residents;
         this.address = address;
@@ -64,11 +64,11 @@ public class Building {
         this.admins = admins;
     }
 
-    public ArrayList<String> getAnnouncements() {
+    public ArrayList<Announcement> getAnnouncements() {
         return announcements;
     }
 
-    public void setAnnouncements(ArrayList<String> announcements) {
+    public void setAnnouncements(ArrayList<Announcement> announcements) {
         this.announcements = announcements;
     }
 

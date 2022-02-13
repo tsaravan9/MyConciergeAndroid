@@ -6,4 +6,87 @@
     android:layout_height="match_parent"
     tools:context=".views.admin.EnterPackageDetailsActivity">
 
+    <TextView
+        android:id="@+id/tv_switch_package"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/switch_package_visitor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_package_name"
+        android:text="Package"/>
+
+    <TextView
+        android:id="@+id/tv_switch_visitor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/switch_package_visitor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_package_name"
+        android:text="Visitor"/>
+
+    <Switch
+        android:id="@+id/switch_package_visitor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_package_name"/>
+
+    <TextView
+        android:id="@+id/tv_package_name"
+        android:text="Package Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switch_package_visitor"
+        app:layout_constraintBottom_toTopOf="@id/edit_package_name"/>
+
+    <EditText
+        android:id="@+id/edit_package_name"
+        android:hint="Enter Package Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_package_name"
+        app:layout_constraintBottom_toTopOf="@+id/tv_package_description"/>
+
+    <TextView
+        android:id="@+id/tv_package_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Package Description"
+        app:layout_constraintBottom_toTopOf="@id/edit_package_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_package_name" />
+
+    <EditText
+        android:id="@+id/edit_package_description"
+        android:hint="Enter Package Details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_package_description"
+        app:layout_constraintBottom_toTopOf="@id/btn_submit_package"/>
+
+    <Button
+        android:id="@+id/btn_submit_package"
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_package_description"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

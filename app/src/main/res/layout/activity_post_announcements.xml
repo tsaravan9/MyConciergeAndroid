@@ -4,6 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.admin.PostAnnouncementsActivity">
+    tools:context=".views.admin.EnterPackageDetailsActivity">
+
+    <TextView
+        android:id="@+id/tv_announcement_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_announcement_title"
+        android:text="Title"/>
+
+    <EditText
+        android:id="@+id/edit_announcement_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_announcement_title"
+        app:layout_constraintBottom_toTopOf="@id/tv_announcement_description"
+        android:hint="Enter Announcement Title"/>
+
+    <TextView
+        android:id="@+id/tv_announcement_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_announcement_title"
+        app:layout_constraintBottom_toTopOf="@id/edit_announcement_description"
+        android:text="Description"/>
+
+    <EditText
+        android:id="@+id/edit_announcement_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_announcement_description"
+        app:layout_constraintBottom_toTopOf="@id/btn_post_announcement"
+        android:hint="Enter Announcement Description"/>
+
+    <Button
+        android:id="@+id/btn_post_announcement"
+        android:text="Post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_announcement_description"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
