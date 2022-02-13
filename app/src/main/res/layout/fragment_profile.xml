@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.ui.profile.ProfileFragment">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageView5"
@@ -41,4 +45,135 @@
         app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="359dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="48dp"
+        app:cardBackgroundColor="@color/browser_actions_bg_grey"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:text="Personal Information:"
+            android:layout_marginLeft="19dp"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="318dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="17dp"
+            android:gravity="left"
+            android:text="Mobile Number: +1 (647)679-4089\n\nAddress: 309, 1403 Royal York Rd, Etobicoke, ON, M9P 0A1"
+            android:textSize="13dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="359dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="200dp"
+        app:cardBackgroundColor="@color/browser_actions_bg_grey"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:text="Contact Us:"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="318dp"
+            android:layout_height="49dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="17dp"
+            android:gravity="center_horizontal"
+            android:text="+1 (647)679-4089"
+            android:textSize="18dp" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="359dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="312dp"
+        app:cardBackgroundColor="@color/browser_actions_bg_grey"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:text="Invite Friends/Family:"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:src="@drawable/facebook"
+            android:layout_gravity="left"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
+            android:gravity="center_horizontal"/>
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:src="@drawable/whatsapp"
+            android:layout_gravity="left"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="150dp"
+            android:gravity="center_horizontal"/>
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:src="@drawable/instagram"
+            android:layout_gravity="left"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="250dp"
+            android:gravity="center_horizontal"/>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
