@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (view.getId()) {
                 case R.id.btnSignIn: {
                     Log.d(TAG, "onClick: Sign In Button Clicked");
-                    this.validateData();
+                    //this.validateData();
+                    goToDashboardPage();
                     break;
                 }
                 case R.id.btnSignup: {
