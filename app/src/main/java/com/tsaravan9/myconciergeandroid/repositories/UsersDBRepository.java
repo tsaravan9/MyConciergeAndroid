@@ -1,20 +1,28 @@
 package com.tsaravan9.myconciergeandroid.repositories;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.tsaravan9.myconciergeandroid.models.Announcement;
 import com.tsaravan9.myconciergeandroid.models.Building;
+import com.tsaravan9.myconciergeandroid.models.Delivery;
+import com.tsaravan9.myconciergeandroid.models.Text;
 import com.tsaravan9.myconciergeandroid.models.User;
+import com.tsaravan9.myconciergeandroid.views.admin.PostAnnouncementsActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,12 +39,19 @@ public class UsersDBRepository {
 //    private final String FIELD_BIRTHDATE = "birthdate";
     public String loggedInUserEmail = "";
     public String currentBuilding = "";
+    public String currentResident = "";
     public MutableLiveData<List<Building>> allBuildings = new MutableLiveData<>();
     public MutableLiveData<List<User>> allResidents = new MutableLiveData<>();
+    public MutableLiveData<List<Text>> allTexts = new MutableLiveData<>();
+    public MutableLiveData<User> userFromDB = new MutableLiveData<>();
 
     private final String COLLECTION_BUILDINGS = "Buildings";
+    private final String COLLECTION_CHAT = "Chat";
+    private final String COLLECTION_PACKAGES = "Packages";
+    private final String COLLECTION_ANNOUNCEMENTS = "Announcements";
     private final String FIELD_ADMIN = "admin";
     private final String FIELD_ADDRESS = "address";
+    private final String FIELD_EMAIL = "email";
 
 
 //    public MutableLiveData<List<Friend>> allFriends = new MutableLiveData<>();
@@ -173,12 +188,234 @@ public class UsersDBRepository {
                         }
                     });
 
-
         }catch(Exception ex){
             Log.e(TAG, "getAllFriends: Exception occured " + ex.getLocalizedMessage() );
             Log.e(TAG, String.valueOf(ex.getStackTrace()));
         }
     }
+
+    public void addPackage(Delivery newPackage) throws Exception {
+        try {
+            Map<String, Object> data = new HashMap<>();
+            data.put("name", newPackage.getName());
+            data.put("description", newPackage.getDescription());
+            data.put("isVisitor", newPackage.getVisitor());
+            data.put("isAccepted", newPackage.getAccepted());
+
+            DB.collection(COLLECTION_USERS)
+                    .document(currentResident)
+                    .collection(COLLECTION_PACKAGES)
+                    .add(data)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference reference) {
+                            Log.d(TAG, "onSuccess: Document Added successfully with ID : " + reference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "onFailure: Error while creating document " + e.getLocalizedMessage() );
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "addFriend: " + ex.getLocalizedMessage());
+        }
+    }
+
+    public void addAnnouncement(Announcement newAnnouncement) {
+        try {
+            Map<String, Object> data = new HashMap<>();
+            data.put("title", newAnnouncement.getTitle());
+            data.put("description", newAnnouncement.getDescription());
+
+            DB.collection(COLLECTION_BUILDINGS)
+                    .whereEqualTo(FIELD_ADDRESS, currentBuilding)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().getDocuments().size() != 0){
+                                    DB.collection(COLLECTION_BUILDINGS)
+                                            .document(task.getResult().getDocuments().get(0).getId())
+                                            .collection(COLLECTION_ANNOUNCEMENTS)
+                                            .add(data)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    Log.d("Done", "Announcement Posted");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d("Failed", "Announcement Not Posted");
+                                                }
+                                            });
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Failed", "Document Not Found");
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "addFriend: " + ex.getLocalizedMessage());
+        }
+    }
+
+    public void addTextToChat(Text newText){
+        try {
+            Map<String, Object> data = new HashMap<>();
+            data.put("sender", newText.getSender());
+            data.put("message", newText.getMessage());
+            data.put("sentAt", newText.getSentAt());
+
+            DB.collection(COLLECTION_BUILDINGS)
+                    .whereEqualTo(FIELD_ADDRESS, currentBuilding)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().getDocuments().size() != 0){
+                                    DB.collection(COLLECTION_BUILDINGS)
+                                            .document(task.getResult().getDocuments().get(0).getId())
+                                            .collection(COLLECTION_CHAT)
+                                            .add(data)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    Log.d("Done", "Message Sent");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d("Failed", "Message Not Sent");
+                                                }
+                                            });
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Failed", "Document Not Found");
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "addFriend: " + ex.getLocalizedMessage());
+        }
+    }
+
+    public void getAllTexts(){
+        try{
+            DB.collection(COLLECTION_BUILDINGS)
+                    .whereEqualTo(FIELD_ADDRESS, currentBuilding)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().getDocuments().size() != 0){
+                                    DB.collection(COLLECTION_BUILDINGS)
+                                            .document(task.getResult().getDocuments().get(0).getId())
+                                            .collection(COLLECTION_CHAT)
+                                            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+                                                    if (error != null){
+                                                        Log.e(TAG, "onEvent: Unable to get document changes " + error );
+                                                        return;
+                                                    }
+
+                                                    List<Text> textList = new ArrayList<>();
+
+                                                    if (snapshot != null){
+                                                        Log.d(TAG, "onEvent: Current Changes " + snapshot.getDocumentChanges());
+
+                                                        for (DocumentChange documentChange: snapshot.getDocumentChanges()){
+
+                                                            Text currentText = documentChange.getDocument().toObject(Text.class);
+                                                            Log.d(TAG, "fefefefrrrr" + currentText.toString());
+
+                                                            switch (documentChange.getType()){
+                                                                case ADDED:
+                                                                    textList.add(currentText);
+                                                                    break;
+                                                                case MODIFIED:
+                                                                    textList.add(currentText);
+                                                                    //TODO - search in friendList for existing object and replace it with new one - currentFriend
+                                                                    break;
+                                                                case REMOVED:
+                                                                    textList.remove(currentText);
+                                                                    break;
+                                                            }
+                                                        }
+
+                                                        allTexts.postValue(textList);
+
+                                                    }else{
+                                                        Log.e(TAG, "onEvent: No changes received");
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Failed", "Document Not Found");
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "addFriend: " + ex.getLocalizedMessage());
+        }
+    }
+
+    public void searchUserByEmail(String email){
+        try{
+            DB.collection(COLLECTION_USERS).whereEqualTo(FIELD_EMAIL, email)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                if (task.getResult().getDocuments().size() != 0){
+                                    User matchedUser = task.getResult().getDocuments().get(0).toObject(User.class);
+
+                                    if (matchedUser != null){
+                                        Log.d("hey", matchedUser.getFirstname());
+                                        userFromDB.postValue(matchedUser);
+                                    }else{
+                                        Log.e(TAG, "onComplete: Unable to convert the matching document to Friend object");
+                                    }
+
+                                }else{
+                                    //no friend with given name
+                                    Log.e(TAG, "onComplete: No friend with give name found");
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                        }
+                    });
+        }catch(Exception ex){
+            Log.e(TAG, "searchFriendByName: Exception occured " + ex.getLocalizedMessage() );
+        }
+    }
+
 
 
 }

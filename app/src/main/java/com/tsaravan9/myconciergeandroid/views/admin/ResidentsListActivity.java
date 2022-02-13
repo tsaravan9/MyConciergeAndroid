@@ -13,6 +13,7 @@ import com.tsaravan9.myconciergeandroid.databinding.ActivityBuildingsListBinding
 import com.tsaravan9.myconciergeandroid.databinding.ActivityResidentsListBinding;
 import com.tsaravan9.myconciergeandroid.models.Building;
 import com.tsaravan9.myconciergeandroid.models.User;
+import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 import com.tsaravan9.myconciergeandroid.views.BuildingAdapter;
 import com.tsaravan9.myconciergeandroid.views.ResidentAdapter;
@@ -23,6 +24,7 @@ public class ResidentsListActivity extends AppCompatActivity {
 
     private ActivityResidentsListBinding binding;
     private UsersViewModel usersViewModel;
+    private UsersDBRepository usersDBRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class ResidentsListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         usersViewModel = UsersViewModel.getInstance(this.getApplication());
+        usersDBRepository = usersViewModel.getUserRepository();
         usersViewModel.getAllResidents();
         usersViewModel.allResidents.observe(this, new Observer<List<User>>() {
             @Override
@@ -66,6 +69,7 @@ public class ResidentsListActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new ResidentAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(User resident) {
+                ResidentsListActivity.this.usersDBRepository.currentResident = resident.getEmail();
                 Intent intent = new Intent(ResidentsListActivity.this, EnterPackageDetailsActivity.class);
                 //put extras
                 startActivity(intent);

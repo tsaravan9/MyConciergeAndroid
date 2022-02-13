@@ -14,6 +14,7 @@ import com.tsaravan9.myconciergeandroid.models.Building;
 import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 import com.tsaravan9.myconciergeandroid.views.BuildingAdapter;
+import com.tsaravan9.myconciergeandroid.views.GlobalChatActivity;
 
 import java.util.List;
 
@@ -67,7 +68,9 @@ public class BuildingsListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Building building) {
                 BuildingsListActivity.this.usersDBRepository.currentBuilding = building.getAddress();
-                Intent intent = new Intent(BuildingsListActivity.this, ResidentsListActivity.class);
+                //Intent intent = new Intent(BuildingsListActivity.this, ResidentsListActivity.class);
+                //Intent intent = new Intent(BuildingsListActivity.this, PostAnnouncementsActivity.class);
+                Intent intent = new Intent(BuildingsListActivity.this, GlobalChatActivity.class);
                 startActivity(intent);
             }
         });

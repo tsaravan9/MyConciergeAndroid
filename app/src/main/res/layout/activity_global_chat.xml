@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".views.GlobalChatActivity">
 
+    <LinearLayout
+        android:id="@+id/linear_global_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chat"/>
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Text"/>
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

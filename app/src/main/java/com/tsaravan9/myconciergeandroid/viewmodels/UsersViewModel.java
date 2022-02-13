@@ -6,7 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.tsaravan9.myconciergeandroid.models.Announcement;
 import com.tsaravan9.myconciergeandroid.models.Building;
+import com.tsaravan9.myconciergeandroid.models.Delivery;
+import com.tsaravan9.myconciergeandroid.models.Text;
 import com.tsaravan9.myconciergeandroid.models.User;
 import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
 
@@ -18,7 +21,7 @@ public class UsersViewModel extends AndroidViewModel {
 //    public MutableLiveData<List<User>> allUsers;
     public MutableLiveData<List<Building>> allBuildings;
     public MutableLiveData<List<User>> allResidents;
-
+    public MutableLiveData<List<Text>> allTexts;
 
     public UsersViewModel(@NonNull Application application) {
         super(application);
@@ -39,6 +42,18 @@ public class UsersViewModel extends AndroidViewModel {
         this.usersDBRepository.addUser(newUser);
     }
 
+    public void addPackage(Delivery newPackage) throws Exception {
+        this.usersDBRepository.addPackage(newPackage);
+    }
+
+    public void addTextToChat(Text newText) throws Exception {
+        this.usersDBRepository.addTextToChat(newText);
+    }
+
+    public void addAnnouncement(Announcement newAnnouncement) throws Exception {
+        this.usersDBRepository.addAnnouncement(newAnnouncement);
+    }
+
     public void getAllBuildings(){
         this.usersDBRepository.getAllBuildings();
         this.allBuildings = this.usersDBRepository.allBuildings;
@@ -47,6 +62,15 @@ public class UsersViewModel extends AndroidViewModel {
     public void getAllResidents(){
         this.usersDBRepository.getAllResidents();
         this.allResidents = this.usersDBRepository.allResidents;
+    }
+
+    public void getAllTexts(){
+        this.usersDBRepository.getAllTexts();
+        this.allTexts = this.usersDBRepository.allTexts;
+    }
+
+    public void searchUserByEmail(String email){
+        this.usersDBRepository.searchUserByEmail(email);
     }
 
 }
