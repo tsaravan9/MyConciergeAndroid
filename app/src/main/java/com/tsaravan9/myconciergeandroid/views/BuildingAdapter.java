@@ -36,7 +36,7 @@ public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.Buildi
         //set total residents here
         holder.textViewTotalResidents.setText("5");
         //change image later
-        holder.imageViewBuildingImage.setImageResource(R.drawable.common_google_signin_btn_icon_dark);
+        holder.imageViewBuildingImage.setImageResource(R.drawable.apartment);
     }
 
     @Override

@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="70dp"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp">
 
     <LinearLayout
         android:id="@+id/building_text_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_width="290dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="100dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginStart="200dp"
-        >
+        android:orientation="vertical">
+
 
         <TextView
             android:id="@+id/building_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:text="Name" />
 
         <TextView
             android:id="@+id/building_total_residents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Residents = "
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="Total Residents = 5" />
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/building_img"
-        android:layout_width="fill_parent"
+        android:layout_width="109dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/common_google_signin_btn_icon_dark"
         android:layout_gravity="left"
-        android:layout_marginEnd="300dp"/>
+        android:layout_marginEnd="300dp"
+        android:src="@drawable/apartment" />
 
 
 </androidx.cardview.widget.CardView>
