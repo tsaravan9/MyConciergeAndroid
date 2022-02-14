@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 case R.id.txtFrgtPass: {
                     Log.d(TAG, "onClick: Forgot password text Clicked");
-
+                    Intent forgotPass = new Intent(this, ForgotPasswordActivity.class);
+                    startActivity(forgotPass);
                     break;
                 }
             }
