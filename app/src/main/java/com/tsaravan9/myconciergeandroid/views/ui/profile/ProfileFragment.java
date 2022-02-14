@@ -11,10 +11,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tsaravan9.myconciergeandroid.databinding.FragmentProfileBinding;
+import com.tsaravan9.myconciergeandroid.models.User;
+import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
+    private UsersViewModel usersViewModel;
+    private User loggedInUser;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -24,8 +28,13 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        final TextView textView = binding.textDashboard;
-//        profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        this.usersViewModel = UsersViewModel.getInstance(this.getActivity().getApplication());
+        loggedInUser = usersViewModel.getUserRepository().loggedInUser;
+        String fullName = loggedInUser.getFirstname() + " " + loggedInUser.getLastname();
+        this.binding.textView3.setText(fullName);
+        this.binding.textView4.setText(loggedInUser.getEmail());
+        this.binding.textView2.setText("Mobile Number: " + loggedInUser.getMobileNumber() + "\n\nAddress:" + loggedInUser.getAddress());
+
         return root;
     }
 

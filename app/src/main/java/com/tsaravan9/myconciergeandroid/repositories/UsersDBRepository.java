@@ -48,6 +48,7 @@ public class UsersDBRepository {
     public MutableLiveData<List<Text>> allTexts = new MutableLiveData<>();
     public MutableLiveData<List<Delivery>> allDeliveries = new MutableLiveData<>();
     public MutableLiveData<User> userFromDB = new MutableLiveData<>();
+    public User loggedInUser = new User();
 
 
     private final String COLLECTION_BUILDINGS = "Buildings";
@@ -447,6 +448,7 @@ public class UsersDBRepository {
                                     if (matchedUser != null){
                                         Log.d("hey", matchedUser.getFirstname());
                                         userFromDB.postValue(matchedUser);
+                                        loggedInUser = matchedUser;
                                     }else{
                                         Log.e(TAG, "onComplete: Unable to convert the matching document to Friend object");
                                     }

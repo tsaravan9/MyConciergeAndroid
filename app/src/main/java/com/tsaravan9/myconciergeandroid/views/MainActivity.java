@@ -58,10 +58,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkIfUserPrefExisted() {
-//        TODO: add logic if user data is pre-existed.
-//        if (prefs.contains("USER_EMAIL") && prefs.contains("USER_PASSWORD")) {
-//
-//        }
+        if (prefs.contains("USER_EMAIL") && prefs.contains("USER_PASSWORD")) {
+            String mail = prefs.getString("USER_EMAIL", "");
+            String pass = prefs.getString("USER_PASSWORD", "");
+            this.signIn(mail, pass);
+        }
     }
 
     @Override
@@ -71,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.btnSignIn: {
                     Log.d(TAG, "onClick: Sign In Button Clicked");
                     this.validateData();
-                    //goToDashboardPage();
-                    //gotToBuildingsListPage();
                     break;
                 }
                 case R.id.btnSignup: {
@@ -126,12 +125,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: Sign In Successful");
                             userdb.loggedInUserEmail = email;
+                            usersViewModel.searchUserByEmail(email);
                             saveToPrefs(email, password);
-                            //goToBuildingsListPage();
                             goToDashboardPage();
                         } else {
-                            Log.e(TAG, "onComplete: Sign In Failed", task.getException());
-                            Snackbar.make(activityMainBinding.llc, "Authentication Failed", Snackbar.LENGTH_SHORT).show();
+                            Log.e(TAG, "onComplete: Sign In Failed " + task.getException().getMessage());
+                            if (task.getException().getMessage().equals("The email address is badly formatted.")) {
+                                Snackbar.make(activityMainBinding.llc, "Please check your credentials", Snackbar.LENGTH_SHORT).show();
+                            } else if (task.getException().getMessage().contains("There is no user record")) {
+                                Snackbar.make(activityMainBinding.llc, "There is no user with provided email address", Snackbar.LENGTH_SHORT).show();
+                            } else if (task.getException().getMessage().contains("The password is invalid")) {
+                                Snackbar.make(activityMainBinding.llc, "Password invalid.", Snackbar.LENGTH_SHORT).show();
+                            } else {
+                                Snackbar.make(activityMainBinding.llc, "Authentication Failed", Snackbar.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });
@@ -139,69 +146,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void saveToPrefs(String email, String password) {
         prefs.edit().putString("USER_EMAIL", email).apply();
-//        if (this.activityMainBinding.chkBox.isChecked()) {
-//            prefs.edit().putString("USER_EMAIL", email).apply();
-//            prefs.edit().putString("USER_PASSWORD", password).apply();
-//        } else {
-//            if (prefs.contains("USER_EMAIL")) {
-//                prefs.edit().remove("USER_EMAIL").apply();
-//            }
-//            if (prefs.contains("USER_PASSWORD")) {
-//                prefs.edit().remove("USER_PASSWORD").apply();
-//            }
-//        }
+        if (this.activityMainBinding.chkBox.isChecked()) {
+            prefs.edit().putString("USER_EMAIL", email).apply();
+            prefs.edit().putString("USER_PASSWORD", password).apply();
+        }
     }
 
     private void goToDashboardPage() {
-        //this.testingDeliveries();
-        //this.testingAnnouncements();
-        Intent intent = new Intent(this, BottomNavigationActivity.class);
-        startActivity(intent);
-    }
-
-    private void goToBuildingsListPage(){
-        Intent intent = new Intent(this, BuildingsListActivity.class);
-        startActivity(intent);
-    }
-
-    //temporary method
-    private void testingDeliveries(){
-        Log.d("email test", prefs.getString("USER_EMAIL", ""));
-        usersViewModel.getUserRepository().loggedInUserEmail = prefs.getString("USER_EMAIL", "");
-        usersViewModel.getAllDeliveries();
-        usersViewModel.allDeliveries.observe(this, new Observer<List<Delivery>>() {
-            @Override
-            public void onChanged(List<Delivery> deliveries) {
-                for (Delivery delivery : deliveries){
-                    Log.d("testMe", delivery.toString());
-                    if (delivery.getVisitor()){
-                        delivery.setAccepted(true);
-                        usersViewModel.updateDelivery(delivery);
-                    }
-                }
-            }
-        });
-    }
-
-    //temporary method
-    private void testingAnnouncements(){
-        usersViewModel.getUserRepository().loggedInUserEmail = prefs.getString("USER_EMAIL", "");
-        usersViewModel.searchUserByEmail(usersViewModel.getUserRepository().loggedInUserEmail);
         this.usersViewModel.getUserRepository().userFromDB.observe(MainActivity.this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 matchedUser = user;
-                usersViewModel.getUserRepository().currentBuilding = matchedUser.getAddress();
-                usersViewModel.getAllAnnouncements();
-                usersViewModel.allAnnouncements.observe(MainActivity.this, new Observer<List<Announcement>>() {
-                    @Override
-                    public void onChanged(List<Announcement> announcements) {
-                        for (Announcement announcement : announcements)
-                            Log.d("testMe", announcement.toString());
-                    }
-                });
+                if (matchedUser.getAdmin()) {
+                    Intent intent = new Intent(MainActivity.this, BuildingsListActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, BottomNavigationActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
-
 }
