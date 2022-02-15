@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tsaravan9.myconciergeandroid.models.Announcement;
+import com.tsaravan9.myconciergeandroid.models.Booking;
 import com.tsaravan9.myconciergeandroid.models.Building;
 import com.tsaravan9.myconciergeandroid.models.Delivery;
 import com.tsaravan9.myconciergeandroid.models.Text;
@@ -20,6 +21,7 @@ public class UsersViewModel extends AndroidViewModel {
     private final UsersDBRepository usersDBRepository = new UsersDBRepository();
     //    public MutableLiveData<List<User>> allUsers;
     public MutableLiveData<List<Building>> allBuildings;
+    public MutableLiveData<List<Booking>> allBookings;
     public MutableLiveData<List<User>> allResidents;
     public MutableLiveData<List<Delivery>> allDeliveries;
     public MutableLiveData<List<Announcement>> allAnnouncements;
@@ -48,6 +50,10 @@ public class UsersViewModel extends AndroidViewModel {
 
     public void addPackage(Delivery newPackage) throws Exception {
         this.usersDBRepository.addPackage(newPackage);
+    }
+
+    public void makeBooking(Booking newBooking) throws Exception {
+        this.usersDBRepository.makeBooking(newBooking);
     }
 
     public void addTextToChat(Text newText) throws Exception {
@@ -86,6 +92,11 @@ public class UsersViewModel extends AndroidViewModel {
     public void getAllAnnouncements(){
         this.usersDBRepository.getAllAnnouncements();
         this.allAnnouncements = this.usersDBRepository.allAnnouncements;
+    }
+
+    public void getBookings(String amenityName){
+        this.usersDBRepository.getBookings(amenityName);
+        this.allBookings = this.usersDBRepository.allBookings;
     }
 
     public void updateDelivery(Delivery updatedDelivery){
