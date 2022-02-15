@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_profile"
         android:name="com.tsaravan9.myconciergeandroid.views.ui.profile.ProfileFragment"
-        android:label="@string/title_dashboard"
+        android:label="profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
@@ -22,4 +22,10 @@
         android:name="com.tsaravan9.myconciergeandroid.views.ui.acceptReject.AcceptRejectFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_accept_reject" />
+
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.tsaravan9.myconciergeandroid.views.ui.globalChat.GlobalChatFragment"
+        android:label="@string/globalChat"
+        tools:layout="@layout/fragment_global_chat" />
 </navigation>

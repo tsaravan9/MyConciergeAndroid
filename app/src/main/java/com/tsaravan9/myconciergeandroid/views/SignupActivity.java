@@ -16,6 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivitySignupBinding;
+import com.tsaravan9.myconciergeandroid.helpers.LocationHelper;
 import com.tsaravan9.myconciergeandroid.models.User;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 
@@ -25,14 +26,16 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth mAuth;
     private ActivitySignupBinding binding;
     private String fName, lName, mail, pass, rePass;
-    private int mob;
+    private Long mob;
+    private LocationHelper locationHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
-
+        this.locationHelper = LocationHelper.getInstance();
+        this.locationHelper.checkPermissions(this);
         this.binding.btnNextToBuilding.setOnClickListener(this);
         this.mAuth = FirebaseAuth.getInstance();
     }
@@ -42,21 +45,25 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         if (v != null) {
             switch (v.getId()) {
                 case R.id.btnNextToBuilding: {
-//                    validateData();
                     try {
-                        UsersViewModel.getInstance(this.getApplication()).getAllBuildingsList();
-                        Intent intent = new Intent(SignupActivity.this, RegisterBuildingToUserActivity.class);
-                        startActivity(intent);
+                        validateData();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+//                    try {
+//                        UsersViewModel.getInstance(this.getApplication()).getAllBuildingsList();
+//                        Intent intent = new Intent(SignupActivity.this, RegisterBuildingToUserActivity.class);
+//                        startActivity(intent);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
                     break;
                 }
             }
         }
     }
 
-    private void validateData() {
+    private void validateData() throws Exception {
         fName = this.binding.tedFName.getText().toString().trim();
         lName = this.binding.tedLName.getText().toString().trim();
         mail = this.binding.tedMail.getText().toString().trim();
@@ -91,7 +98,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             this.binding.tilMob.setError("Mobile number cannot be empty.");
             validData = false;
         } else {
-            mob = Integer.parseInt(mobile);
+            mob = Long.parseLong(mobile);
             this.binding.tilMob.setErrorEnabled(false);
             validData = true;
         }
@@ -117,7 +124,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         //TODO: check if the account already exists or not with email
         if (validData) {
             User newUser = new User(fName, lName, mail, pass, mob, false);
-            createAcccount(newUser);
+//            createAcccount(newUser);
+            UsersViewModel.getInstance(getApplication()).getAllBuildingsList();
+            Intent intent = new Intent(SignupActivity.this, RegisterBuildingToUserActivity.class);
+            intent.putExtra("preUserData", newUser);
+            startActivity(intent);
         } else {
             Snackbar.make(this.binding.llSignUp, "Please provide valid details", Snackbar.LENGTH_SHORT).show();
         }

@@ -53,7 +53,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         this.binding.fullNameDisplay.setText(fullName);
         this.binding.emailDisplay.setText(loggedInUser.getEmail());
         this.binding.mobileDisplay.setText("Mobile Number: " + loggedInUser.getMobileNumber());
-        this.binding.addressDisplay.setText("Address:" + loggedInUser.getAddress());
+        this.binding.addressDisplay.setText("Address:" + loggedInUser.getApartment() + " - " + loggedInUser.getAddress());
 
         return root;
     }
