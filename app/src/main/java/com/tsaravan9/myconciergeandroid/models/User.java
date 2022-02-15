@@ -10,7 +10,7 @@ public class User implements Serializable {
     private Long mobileNumber = 0L;
     private String address = "";
     private Boolean admin = false;
-    private int apartment = 0;
+    private String apartment = "";
 
     public User(String firstname, String lastName, String email, String pass, Long mobileNumber, Boolean isAdmin) {
         this.firstname = firstname;
@@ -21,7 +21,7 @@ public class User implements Serializable {
         this.admin = isAdmin;
     }
 
-    public User(String firstname, String lastName, String email, String pass, Long mobileNumber, String address, Boolean isAdmin, int apartment) {
+    public User(String firstname, String lastName, String email, String pass, Long mobileNumber, String address, Boolean isAdmin, String apartment) {
         this.firstname = firstname;
         this.lastname = lastName;
         this.email = email;
@@ -36,11 +36,11 @@ public class User implements Serializable {
 
     }
 
-    public int getApartment() {
+    public String getApartment() {
         return apartment;
     }
 
-    public void setApartment(int apartment) {
+    public void setApartment(String apartment) {
         this.apartment = apartment;
     }
 

@@ -221,8 +221,7 @@ public class RegisterBuildingToUserActivity extends AppCompatActivity implements
         }
 
         if (!binding.edAptNum.getText().toString().isEmpty()) {
-            apartNum = Integer.parseInt(binding.edAptNum.getText().toString());
-            userData.setApartment(apartNum);
+            userData.setApartment(binding.edAptNum.getText().toString());
             validData = true;
         } else {
             binding.edAptNum.setError("This field cannot be empty");

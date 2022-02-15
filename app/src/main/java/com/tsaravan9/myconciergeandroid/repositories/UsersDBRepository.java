@@ -74,10 +74,10 @@ public class UsersDBRepository {
             data.put("lastname", newUser.getLastname());
             data.put("email", newUser.getEmail());
             data.put("pass", newUser.getPass());
-            data.put("mobile", newUser.getMobileNumber());
-            data.put("isAdmin", newUser.getAdmin());
+            data.put("mobileNumber", newUser.getMobileNumber());
+            data.put("admin", newUser.getAdmin());
             data.put("address", newUser.getAddress());
-            data.put("aptNum", newUser.getApartment());
+            data.put("apartment", newUser.getApartment());
 
             DB.collection(COLLECTION_USERS)
                     .document(newUser.getEmail())

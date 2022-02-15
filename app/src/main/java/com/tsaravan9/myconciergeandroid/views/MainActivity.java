@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onChanged(User user) {
                 matchedUser = user;
+                Log.d("userLogin", matchedUser.getAdmin()+"");
                 if (matchedUser.getAdmin()) {
                     Intent intent = new Intent(MainActivity.this, BuildingsListActivity.class);
                     startActivity(intent);
