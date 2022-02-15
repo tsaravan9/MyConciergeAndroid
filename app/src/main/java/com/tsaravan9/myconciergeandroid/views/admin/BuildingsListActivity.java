@@ -68,8 +68,8 @@ public class BuildingsListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Building building) {
                 BuildingsListActivity.this.usersDBRepository.currentBuilding = building.getAddress();
-                //Intent intent = new Intent(BuildingsListActivity.this, ResidentsListActivity.class);
-                Intent intent = new Intent(BuildingsListActivity.this, PostAnnouncementsActivity.class);
+                Intent intent = new Intent(BuildingsListActivity.this, ResidentsListActivity.class);
+                //Intent intent = new Intent(BuildingsListActivity.this, PostAnnouncementsActivity.class);
                 //Intent intent = new Intent(BuildingsListActivity.this, GlobalChatActivity.class);
                 startActivity(intent);
             }

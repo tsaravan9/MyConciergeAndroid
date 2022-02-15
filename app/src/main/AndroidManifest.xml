@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyConciergeAndroid">
         <activity
+            android:name=".views.resident.QRActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.resident.BookAmenityActivity"
             android:exported="false" />
 

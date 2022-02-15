@@ -3,6 +3,7 @@ package com.tsaravan9.myconciergeandroid.views.resident;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +14,12 @@ import com.tsaravan9.myconciergeandroid.models.User;
 import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -82,6 +86,13 @@ public class BookAmenityActivity extends AppCompatActivity {
         Booking booking = new Booking(currentAmenity, slot, resident.getFirstname() + " " + resident.getLastname(),
                 resident.getApartment(), System.currentTimeMillis(), bookedFor);
         usersViewModel.makeBooking(booking);
+        Intent intent = new Intent(BookAmenityActivity.this, QRActivity.class);
+        Long bookedAt = booking.getBookedAt();
+        Date date2 = new Date(bookedAt);
+        Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+        String str = booking.getAmenityName() + booking.getSlot() + booking.getBookedFor() + booking.getResident() + booking.getApartment() + format.format(date2);
+        intent.putExtra("INFO", str);
+        startActivity(intent);
     }
 
     private void book(){
