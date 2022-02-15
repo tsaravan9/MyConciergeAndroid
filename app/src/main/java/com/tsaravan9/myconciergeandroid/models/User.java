@@ -1,16 +1,18 @@
 package com.tsaravan9.myconciergeandroid.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String firstname = "";
     private String lastname = "";
     private String email = "";
     private String pass = "";
-    private int mobileNumber = 0;
+    private Long mobileNumber = 0L;
     private String address = "";
     private Boolean admin = false;
-    private String apartment;
+    private String apartment = "";
 
-    public User(String firstname, String lastName, String email, String pass, int mobileNumber, Boolean isAdmin) {
+    public User(String firstname, String lastName, String email, String pass, Long mobileNumber, Boolean isAdmin) {
         this.firstname = firstname;
         this.lastname = lastName;
         this.email = email;
@@ -19,17 +21,7 @@ public class User {
         this.admin = isAdmin;
     }
 
-    public User(String firstname, String lastName, String email, String pass, int mobileNumber, String address, Boolean isAdmin) {
-        this.firstname = firstname;
-        this.lastname = lastName;
-        this.email = email;
-        this.pass = pass;
-        this.mobileNumber = mobileNumber;
-        this.address = address;
-        this.admin = isAdmin;
-    }
-
-    public User(String firstname, String lastName, String email, String pass, int mobileNumber, String address, Boolean isAdmin, String apartment) {
+    public User(String firstname, String lastName, String email, String pass, Long mobileNumber, String address, Boolean isAdmin, String apartment) {
         this.firstname = firstname;
         this.lastname = lastName;
         this.email = email;
@@ -40,7 +32,7 @@ public class User {
         this.apartment = apartment;
     }
 
-    public User(){
+    public User() {
 
     }
 
@@ -100,11 +92,11 @@ public class User {
         this.pass = pass;
     }
 
-    public int getMobileNumber() {
+    public Long getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(int mobileNumber) {
+    public void setMobileNumber(Long mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
@@ -112,12 +104,13 @@ public class User {
     public String toString() {
         return "User{" +
                 "firstname='" + firstname + '\'' +
-                ", lastName='" + lastname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", pass='" + pass + '\'' +
                 ", mobileNumber=" + mobileNumber +
                 ", address='" + address + '\'' +
-                ", isAdmin=" + admin +
+                ", admin=" + admin +
+                ", apartment=" + apartment +
                 '}';
     }
 }
