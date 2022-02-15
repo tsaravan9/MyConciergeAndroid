@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/PC/Education/AndroidPrograms/MyConciergeAndroid/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.1705" />
+        <entry key="..\:/PC/Education/AndroidPrograms/MyConciergeAndroid/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1705" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1185" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1185" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1185" />
