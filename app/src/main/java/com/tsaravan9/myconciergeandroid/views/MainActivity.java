@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         activityMainBinding.btnSignup.setOnClickListener(this);
         activityMainBinding.txtFrgtPass.setOnClickListener(this);
 
-//        checkIfUserPrefExisted();
+        checkIfUserPrefExisted();
 
     }
 
