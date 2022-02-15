@@ -76,6 +76,8 @@ public class UsersDBRepository {
             data.put("pass", newUser.getPass());
             data.put("mobile", newUser.getMobileNumber());
             data.put("isAdmin", newUser.getAdmin());
+            data.put("address", newUser.getAddress());
+            data.put("aptNum", newUser.getApartment());
 
             DB.collection(COLLECTION_USERS)
                     .document(newUser.getEmail())
@@ -239,8 +241,8 @@ public class UsersDBRepository {
                         }
                     });
 
-        }catch(Exception ex){
-            Log.e(TAG, "getAllFriends: Exception occured " + ex.getLocalizedMessage() );
+        } catch (Exception ex) {
+            Log.e(TAG, "getAllFriends: Exception occured " + ex.getLocalizedMessage());
             Log.e(TAG, String.valueOf(ex.getStackTrace()));
         }
     }
@@ -267,7 +269,7 @@ public class UsersDBRepository {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.e(TAG, "onFailure: Error while creating document " + e.getLocalizedMessage() );
+                            Log.e(TAG, "onFailure: Error while creating document " + e.getLocalizedMessage());
                         }
                     });
         } catch (Exception ex) {
@@ -288,8 +290,8 @@ public class UsersDBRepository {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()){
-                                if (task.getResult().getDocuments().size() != 0){
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
                                     DB.collection(COLLECTION_BUILDINGS)
                                             .document(task.getResult().getDocuments().get(0).getId())
                                             .collection(COLLECTION_ANNOUNCEMENTS)
@@ -321,7 +323,7 @@ public class UsersDBRepository {
         }
     }
 
-    public void addTextToChat(Text newText){
+    public void addTextToChat(Text newText) {
         try {
             Map<String, Object> data = new HashMap<>();
             data.put("sender", newText.getSender());
@@ -334,8 +336,8 @@ public class UsersDBRepository {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()){
-                                if (task.getResult().getDocuments().size() != 0){
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
                                     DB.collection(COLLECTION_BUILDINGS)
                                             .document(task.getResult().getDocuments().get(0).getId())
                                             .collection(COLLECTION_CHAT)
@@ -367,38 +369,38 @@ public class UsersDBRepository {
         }
     }
 
-    public void getAllTexts(){
-        try{
+    public void getAllTexts() {
+        try {
             DB.collection(COLLECTION_BUILDINGS)
                     .whereEqualTo(FIELD_ADDRESS, currentBuilding)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()){
-                                if (task.getResult().getDocuments().size() != 0){
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
                                     DB.collection(COLLECTION_BUILDINGS)
                                             .document(task.getResult().getDocuments().get(0).getId())
                                             .collection(COLLECTION_CHAT)
                                             .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
-                                                    if (error != null){
-                                                        Log.e(TAG, "onEvent: Unable to get document changes " + error );
+                                                    if (error != null) {
+                                                        Log.e(TAG, "onEvent: Unable to get document changes " + error);
                                                         return;
                                                     }
 
                                                     List<Text> textList = new ArrayList<>();
 
-                                                    if (snapshot != null){
+                                                    if (snapshot != null) {
                                                         Log.d(TAG, "onEvent: Current Changes " + snapshot.getDocumentChanges());
 
-                                                        for (DocumentChange documentChange: snapshot.getDocumentChanges()){
+                                                        for (DocumentChange documentChange : snapshot.getDocumentChanges()) {
 
                                                             Text currentText = documentChange.getDocument().toObject(Text.class);
                                                             Log.d(TAG, "fefefefrrrr" + currentText.toString());
 
-                                                            switch (documentChange.getType()){
+                                                            switch (documentChange.getType()) {
                                                                 case ADDED:
                                                                     textList.add(currentText);
                                                                     break;
@@ -414,7 +416,7 @@ public class UsersDBRepository {
 
                                                         allTexts.postValue(textList);
 
-                                                    }else{
+                                                    } else {
                                                         Log.e(TAG, "onEvent: No changes received");
                                                     }
                                                 }
@@ -434,26 +436,26 @@ public class UsersDBRepository {
         }
     }
 
-    public void searchUserByEmail(String email){
-        try{
+    public void searchUserByEmail(String email) {
+        try {
             DB.collection(COLLECTION_USERS).whereEqualTo(FIELD_EMAIL, email)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()){
-                                if (task.getResult().getDocuments().size() != 0){
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
                                     User matchedUser = task.getResult().getDocuments().get(0).toObject(User.class);
 
-                                    if (matchedUser != null){
+                                    if (matchedUser != null) {
                                         Log.d("hey", matchedUser.getFirstname());
                                         userFromDB.postValue(matchedUser);
                                         loggedInUser = matchedUser;
-                                    }else{
+                                    } else {
                                         Log.e(TAG, "onComplete: Unable to convert the matching document to Friend object");
                                     }
 
-                                }else{
+                                } else {
                                     //no friend with given name
                                     Log.e(TAG, "onComplete: No friend with give name found");
                                 }
@@ -465,41 +467,41 @@ public class UsersDBRepository {
                         public void onFailure(@NonNull Exception e) {
                         }
                     });
-        }catch(Exception ex){
-            Log.e(TAG, "searchFriendByName: Exception occured " + ex.getLocalizedMessage() );
+        } catch (Exception ex) {
+            Log.e(TAG, "searchFriendByName: Exception occured " + ex.getLocalizedMessage());
         }
     }
 
-    public void getAllAnnouncements(){
-        try{
+    public void getAllAnnouncements() {
+        try {
             DB.collection(COLLECTION_BUILDINGS)
                     .whereEqualTo(FIELD_ADDRESS, currentBuilding)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()){
-                                if (task.getResult().getDocuments().size() != 0){
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
                                     DB.collection(COLLECTION_BUILDINGS)
                                             .document(task.getResult().getDocuments().get(0).getId())
                                             .collection(COLLECTION_ANNOUNCEMENTS)
                                             .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
-                                                    if (error != null){
-                                                        Log.e(TAG, "onEvent: Unable to get document changes " + error );
+                                                    if (error != null) {
+                                                        Log.e(TAG, "onEvent: Unable to get document changes " + error);
                                                         return;
                                                     }
 
                                                     List<Announcement> announcementList = new ArrayList<>();
 
-                                                    if (snapshot != null){
+                                                    if (snapshot != null) {
                                                         Log.d(TAG, "onEvent: Current Changes " + snapshot.getDocumentChanges());
 
-                                                        for (DocumentChange documentChange: snapshot.getDocumentChanges()){
+                                                        for (DocumentChange documentChange : snapshot.getDocumentChanges()) {
 
                                                             Announcement currentAnnouncement = documentChange.getDocument().toObject(Announcement.class);
-                                                            switch (documentChange.getType()){
+                                                            switch (documentChange.getType()) {
                                                                 case ADDED:
                                                                     announcementList.add(currentAnnouncement);
                                                                     break;
@@ -515,7 +517,7 @@ public class UsersDBRepository {
                                                         Log.d("UserRepo", announcementList.toString());
                                                         allAnnouncements.postValue(announcementList);
 
-                                                    }else{
+                                                    } else {
                                                         Log.e(TAG, "onEvent: No changes received");
                                                     }
                                                 }
@@ -535,30 +537,30 @@ public class UsersDBRepository {
         }
     }
 
-    public void getAllDeliveries(){
-        try{
+    public void getAllDeliveries() {
+        try {
             DB.collection(COLLECTION_USERS)
                     .document(loggedInUserEmail)
                     .collection(COLLECTION_PACKAGES)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
-                            if (error != null){
-                                Log.e(TAG, "onEvent: Unable to get document changes " + error );
+                            if (error != null) {
+                                Log.e(TAG, "onEvent: Unable to get document changes " + error);
                                 return;
                             }
 
                             List<Delivery> deliveryList = new ArrayList<>();
 
-                            if (snapshot != null){
+                            if (snapshot != null) {
                                 Log.d(TAG, "onEvent: Current Changes " + snapshot.getDocumentChanges());
 
-                                for (DocumentChange documentChange: snapshot.getDocumentChanges()){
+                                for (DocumentChange documentChange : snapshot.getDocumentChanges()) {
 
                                     Delivery currentDelivery = documentChange.getDocument().toObject(Delivery.class);
                                     Log.d(TAG, "onEvent: currentUser : " + currentDelivery.toString());
 
-                                    switch (documentChange.getType()){
+                                    switch (documentChange.getType()) {
                                         case ADDED:
                                             deliveryList.add(currentDelivery);
                                             break;
@@ -573,7 +575,7 @@ public class UsersDBRepository {
 
                                 allDeliveries.postValue(deliveryList);
 
-                            }else{
+                            } else {
                                 Log.e(TAG, "onEvent: No changes received");
                             }
                         }
@@ -583,11 +585,11 @@ public class UsersDBRepository {
         }
     }
 
-    public void updateDelivery(Delivery updatedDelivery){
+    public void updateDelivery(Delivery updatedDelivery) {
         Map<String, Object> updatedInfo = new HashMap<>();
         updatedInfo.put("accepted", updatedDelivery.getAccepted());
 
-        try{
+        try {
             DB.collection(COLLECTION_USERS)
                     .document(loggedInUserEmail)
                     .collection(COLLECTION_PACKAGES)
@@ -596,8 +598,8 @@ public class UsersDBRepository {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()){
-                                if (task.getResult().getDocuments().size() != 0){
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
                                     DB.collection(COLLECTION_USERS)
                                             .document(loggedInUserEmail)
                                             .collection(COLLECTION_PACKAGES)
@@ -625,17 +627,10 @@ public class UsersDBRepository {
                             Log.d("Failed", "Document Not Found");
                         }
                     });
-        }catch(Exception ex){
-            Log.e(TAG, "updateFriend: Exception occured " + ex.getLocalizedMessage() );
+        } catch (Exception ex) {
+            Log.e(TAG, "updateFriend: Exception occured " + ex.getLocalizedMessage());
         }
     }
-
-
-
-
-
-
-
 
 
 }

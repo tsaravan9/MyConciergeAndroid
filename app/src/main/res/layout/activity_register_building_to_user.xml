@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="20dp"
     tools:context=".views.RegisterBuildingToUserActivity">
 
-    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-        android:id="@+id/autoCompleteBuildingReg"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/llcregister"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/mvShowBuilingMap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="50dp" />
+        <!--        <androidx.appcompat.widget.AppCompatSpinner-->
+        <!--            android:id="@+id/autoCompleteBuildingReg"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content" />-->
 
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/autoCompleteBuildingReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edAptNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Apartment Number" />
+
+        <fragment
+            android:id="@+id/mvShowBuilingMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginTop="30dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submitReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="submit" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>
