@@ -36,8 +36,10 @@
 
         <TextView
             android:id="@+id/textView11"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="356dp"
+            android:layout_height="162dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="TextView" />
     </androidx.cardview.widget.CardView>
 
@@ -79,8 +81,10 @@
 
         <TextView
             android:id="@+id/textView12"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="354dp"
+            android:layout_height="153dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="TextView" />
     </androidx.cardview.widget.CardView>
 
