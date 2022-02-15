@@ -42,7 +42,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         if (v != null) {
             switch (v.getId()) {
                 case R.id.btnNextToBuilding: {
-                    validateData();
+//                    validateData();
+                    try {
+                        UsersViewModel.getInstance(this.getApplication()).getAllBuildingsList();
+                        Intent intent = new Intent(SignupActivity.this, RegisterBuildingToUserActivity.class);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
             }

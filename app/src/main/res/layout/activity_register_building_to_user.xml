@@ -8,9 +8,17 @@
     android:padding="20dp"
     tools:context=".views.RegisterBuildingToUserActivity">
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinBuildingReg"
+    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        android:id="@+id/autoCompleteBuildingReg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <fragment
+        android:id="@+id/mvShowBuilingMap"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="50dp" />
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>
