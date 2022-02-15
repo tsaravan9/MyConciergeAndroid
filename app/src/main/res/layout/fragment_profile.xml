@@ -48,12 +48,13 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         app:cardBackgroundColor="@color/browser_actions_bg_grey"
         app:cardCornerRadius="20dp"
-        app:cardElevation="30dp"
+        app:cardElevation="10dp"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
 
@@ -90,12 +91,13 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         app:cardBackgroundColor="@color/browser_actions_bg_grey"
         app:cardCornerRadius="20dp"
-        app:cardElevation="30dp"
+        app:cardElevation="10dp"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
 
@@ -119,12 +121,13 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         app:cardBackgroundColor="@color/browser_actions_bg_grey"
         app:cardCornerRadius="20dp"
-        app:cardElevation="30dp"
+        app:cardElevation="10dp"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
 

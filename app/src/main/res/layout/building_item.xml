@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:layout_marginEnd="8dp"
@@ -8,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/building_text_layout"
-        android:layout_width="290dp"
+        android:layout_width="231dp"
         android:layout_height="match_parent"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="50dp"
@@ -17,18 +18,22 @@
 
         <TextView
             android:id="@+id/building_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="231dp"
+            android:layout_height="34dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Name" />
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Name"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/building_total_residents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Total Residents = 5" />
+            android:layout_marginTop="4dp"
+            android:text="Total Residents = 5"
+            android:textStyle="italic" />
 
     </LinearLayout>
 
@@ -39,6 +44,15 @@
         android:layout_gravity="left"
         android:layout_marginEnd="300dp"
         android:src="@drawable/apartment" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        app:srcCompat="@drawable/rightarrow" />
 
 
 </androidx.cardview.widget.CardView>

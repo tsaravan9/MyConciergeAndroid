@@ -34,7 +34,7 @@ public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.Buildi
         //manipulate address
         holder.textViewName.setText(currentBuilding.getAddress());
         //set total residents here
-        holder.textViewTotalResidents.setText("5");
+        holder.textViewTotalResidents.setText("Total Residents: 5");
         //change image later
         holder.imageViewBuildingImage.setImageResource(R.drawable.apartment);
     }
