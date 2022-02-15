@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="90dp"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp">
@@ -11,7 +11,7 @@
         android:id="@+id/resident_text_layout"
         android:layout_width="225dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="80dp"
         android:layout_marginEnd="50dp"
         android:orientation="vertical">
 
@@ -22,7 +22,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="Name: " />
+            android:textStyle="bold"
+            android:text="Name: "
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/mobile_number"
@@ -30,36 +32,39 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:textStyle="italic"
             android:gravity="center"
-            android:text="Mobile Number:" />
+            android:text="Mobile Number: +1 (647)679-4089" />
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/resident_img"
-        android:layout_width="83dp"
-        android:layout_height="66dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="80dp"
+        android:layout_height="59dp"
         android:layout_gravity="left"
         android:layout_marginEnd="300dp"
         android:src="@drawable/man" />
 
     <TextView
         android:id="@+id/resident_apartment_number"
-        android:layout_width="90dp"
+        android:layout_width="80dp"
         android:layout_height="30dp"
         android:layout_gravity="bottom"
         android:textStyle="bold"
+        android:textSize="17dp"
         android:gravity="center"
         android:text="TextView" />
 
     <ImageView
         android:id="@+id/arrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="46dp"
+        android:layout_height="52dp"
         android:layout_gravity="right"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="10dp"
-        app:srcCompat="@drawable/arrowright" />
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        app:srcCompat="@drawable/rightarrow2" />
 
 
 </androidx.cardview.widget.CardView>

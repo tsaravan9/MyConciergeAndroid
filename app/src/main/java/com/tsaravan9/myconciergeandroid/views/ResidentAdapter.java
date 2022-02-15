@@ -35,7 +35,7 @@ public class ResidentAdapter extends RecyclerView.Adapter<ResidentAdapter.Reside
         Log.d("gggggg", currentUser.getFirstname() + " " + currentUser.getLastname());
         holder.textViewName.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
         //set total residents here
-        holder.textViewApartmentNumber.setText(currentUser.getApartment());
+        holder.textViewApartmentNumber.setText("#"+currentUser.getApartment());
         //change image later
         holder.imageViewResidentImage.setImageResource(R.drawable.man);
     }
