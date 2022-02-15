@@ -129,8 +129,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             userdb.loggedInUserEmail = email;
                             usersViewModel.searchUserByEmail(email);
                             saveToPrefs(email, password);
-                            //goToDashboardPage();
-                            testBooking();
+                            goToDashboardPage();
+                            //testBooking();
                         } else {
                             Log.e(TAG, "onComplete: Sign In Failed " + task.getException().getMessage());
                             if (task.getException().getMessage().equals("The email address is badly formatted.")) {
