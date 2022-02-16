@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void signIn(String email, String password) {
+//        activityMainBinding.pbLoading.setVisibility(View.VISIBLE);
+//        activityMainBinding.clSignInLayout.setVisibility(View.GONE);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -163,6 +165,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onChanged(User user) {
                 matchedUser = user;
+//                activityMainBinding.pbLoading.setVisibility(View.GONE);
+//                activityMainBinding.clSignInLayout.setVisibility(View.VISIBLE);
                 Log.d("userLogin", matchedUser.getAdmin() + "");
                 if (matchedUser.getAdmin()) {
                     Intent intent = new Intent(MainActivity.this, BuildingsListActivity.class);

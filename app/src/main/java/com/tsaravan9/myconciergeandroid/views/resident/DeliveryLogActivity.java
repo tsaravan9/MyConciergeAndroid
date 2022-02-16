@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityBuildingsListBinding;
@@ -58,14 +59,16 @@ public class DeliveryLogActivity extends AppCompatActivity {
             public void onChanged(List<Delivery> deliveries) {
                 //update RecyclerView Later
                 //Toast.makeText(MainActivity.this, "On Changed", Toast.LENGTH_SHORT).show();
-                if (deliveries != null){
+                if (deliveries != null) {
                     adapter.setDeliveries(deliveries);
+                    binding.pbLoading.setVisibility(View.GONE);
+                    binding.llcDeliveryLog.setVisibility(View.VISIBLE);
                 }
             }
         });
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
         MenuItem menuItem = menu.findItem(R.id.action_search);

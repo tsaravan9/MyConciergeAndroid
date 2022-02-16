@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,6 +63,8 @@ public class ResidentsListActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "On Changed", Toast.LENGTH_SHORT).show();
                 if (residents != null) {
                     adapter.setResidents(residents);
+                    binding.pbLoading.setVisibility(View.GONE);
+                    binding.llcBuildingList.setVisibility(View.VISIBLE);
                     adapter.setOnItemClickListener(new ResidentAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(User resident) {

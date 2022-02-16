@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityBuildingsListBinding;
@@ -49,8 +50,10 @@ public class BuildingsListActivity extends AppCompatActivity {
             public void onChanged(List<Building> buildings) {
                 //update RecyclerView Later
                 //Toast.makeText(MainActivity.this, "On Changed", Toast.LENGTH_SHORT).show();
-                if (buildings != null){
+                if (buildings != null) {
                     adapter.setBuildings(buildings);
+                    binding.pbLoading.setVisibility(View.GONE);
+                    binding.llcBuildingList.setVisibility(View.VISIBLE);
                     adapter.setOnItemClickListener(new BuildingAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Building building) {
@@ -67,7 +70,7 @@ public class BuildingsListActivity extends AppCompatActivity {
 
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
         MenuItem menuItem = menu.findItem(R.id.action_search);

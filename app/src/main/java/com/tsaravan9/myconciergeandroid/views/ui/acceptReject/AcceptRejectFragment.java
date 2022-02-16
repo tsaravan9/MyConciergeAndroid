@@ -59,9 +59,10 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
                     filterForVisitors();
                     sort(visitors);
                     nextVisitor();
-                    binding.pbLoading.setVisibility(View.GONE);
+//                    binding.pbLoading.setVisibility(View.GONE);
                     binding.clAcptRjctFrg.setVisibility(View.VISIBLE);
                 } else {
+//                    binding.pbLoading.setVisibility(View.GONE);
                     binding.clAcceptReject.setVisibility(View.GONE);
                     binding.tvNoRequests.setVisibility(View.VISIBLE);
                 }
