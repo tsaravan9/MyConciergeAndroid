@@ -1,19 +1,17 @@
 package com.tsaravan9.myconciergeandroid.models;
 
-import com.google.firebase.firestore.PropertyName;
-
 public class Delivery {
     private String name;
     private String description;
     private boolean visitor;
-    private boolean accepted;
+    private boolean allowed = false;
     private Long enteredAt;
+    private boolean rejected = false;
 
     public Delivery(String name, String description, boolean isVisitor, Long enteredAt) {
         this.name = name;
         this.description = description;
         this.visitor = isVisitor;
-        this.accepted = false;
         this.enteredAt = enteredAt;
     }
 
@@ -21,12 +19,20 @@ public class Delivery {
 
     }
 
-    public boolean getAccepted() {
-        return accepted;
+    public boolean isRejected() {
+        return rejected;
     }
 
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
+    public void setRejected(boolean rejected) {
+        this.rejected = rejected;
+    }
+
+    public boolean isAllowed() {
+        return allowed;
+    }
+
+    public void setAllowed(boolean allowed) {
+        this.allowed = allowed;
     }
 
     public String getName() {
@@ -66,9 +72,10 @@ public class Delivery {
         return "Delivery{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", isVisitor=" + visitor +
-                ", isAccepted=" + accepted +
+                ", visitor=" + visitor +
+                ", accepted=" + allowed +
                 ", enteredAt=" + enteredAt +
+                ", rejected=" + rejected +
                 '}';
     }
 }

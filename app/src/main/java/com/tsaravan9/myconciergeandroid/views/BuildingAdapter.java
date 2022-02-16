@@ -1,8 +1,11 @@
 package com.tsaravan9.myconciergeandroid.views;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,9 +18,10 @@ import com.tsaravan9.myconciergeandroid.models.Building;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.BuildingHolder>{
+public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.BuildingHolder> implements Filterable {
 
     private List<Building> buildings = new ArrayList<>();
+    private List<Building> tempBuildings = new ArrayList<>();
     private OnItemClickListener listener;
 
     @NonNull
@@ -45,6 +49,7 @@ public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.Buildi
     }
 
     public void setBuildings(List<Building> buildings) {
+        this.tempBuildings = buildings;
         this.buildings = buildings;
         notifyDataSetChanged();
     }
@@ -83,5 +88,51 @@ public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.Buildi
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
+
+    @Override
+    public Filter getFilter(){
+        return new Filter()
+        {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                buildings = tempBuildings;
+                FilterResults filterResults = new FilterResults();
+                ArrayList<Building> tempList=new ArrayList<>();
+                //constraint is the result from text you want to filter against.
+                //objects is your data set you will filter from
+                if(constraint != null && buildings!=null) {
+                    int length=buildings.size();
+                    int i=0;
+                    while(i<length){
+                        Building item=buildings.get(i);
+                        //do whatever you wanna do here
+                        //adding result set output array
+                        if (item.getAddress().toLowerCase().contains(constraint)){
+                            tempList.add(item);
+                        }
+                        i++;
+                    }
+                    //following two lines is very important
+                    //as publish result can only take FilterResults objects
+                    filterResults.values = tempList;
+                    filterResults.count = tempList.size();
+                }
+                return filterResults;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                buildings = (ArrayList<Building>) results.values;
+                if (results.count > 0) {
+                    notifyDataSetChanged();
+                } else {
+                    Log.d("Filter Buildings", "No search results");
+                    notifyDataSetChanged();
+                }
+            }
+        };
+    }
 }
+
 
