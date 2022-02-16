@@ -49,7 +49,7 @@
             android:name=".views.admin.BuildingsListActivity"
             android:exported="false" />
         <activity
-            android:name=".views.resident.ActivityLogActivity"
+            android:name=".views.resident.DeliveryLogActivity"
             android:exported="false" />
         <activity
             android:name=".views.GlobalChatActivity"
