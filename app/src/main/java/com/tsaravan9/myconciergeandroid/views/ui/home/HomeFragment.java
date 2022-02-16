@@ -47,6 +47,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         String fullName = "Hi, " + loggedInUser.getFirstname() + " " + loggedInUser.getLastname();
         this.binding.textView5.setText(fullName);
 
+        this.binding.swimmingImg.setOnClickListener(this);
+        this.binding.gymImg.setOnClickListener(this);
+        this.binding.snookerImg.setOnClickListener(this);
         getData();
         return root;
         //TODO: test this below method to migrate the firebase calls to view models
