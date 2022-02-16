@@ -21,13 +21,13 @@
 
     <TextView
         android:id="@+id/congratsText"
-        android:layout_width="375dp"
-        android:layout_height="43dp"
+        android:layout_width="373dp"
+        android:layout_height="74dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
+        android:text="Congratulations! Your booking has been done for Gym on 17/02/2021 from 06:00 PM-08:00 PM."
         android:textColor="@color/black"
         android:textSize="16dp"
-        android:text="Congratulations! Your booking has been done for Gym on 17/02/2021 from 06:00 PM-08:00 PM."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"

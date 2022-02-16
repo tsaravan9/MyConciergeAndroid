@@ -91,7 +91,7 @@ public class QRActivity extends AppCompatActivity {
         }
 
         prepareTimeslot(time);
-        this.binding.congratsText.setText("Congratulations! Your booking has been done for"+amenity+" on " +date+ "from "+timeslot);
+        this.binding.congratsText.setText("Congratulations! Your booking has been done for "+amenity+" on " +date+ " from "+timeslot);
     }
 
     @Override
