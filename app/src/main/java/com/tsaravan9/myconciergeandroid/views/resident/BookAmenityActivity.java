@@ -1,5 +1,6 @@
 package com.tsaravan9.myconciergeandroid.views.resident;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
@@ -7,12 +8,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
+import android.widget.Spinner;
 
+import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityBookAmenityBinding;
 import com.tsaravan9.myconciergeandroid.models.Booking;
 import com.tsaravan9.myconciergeandroid.models.User;
 import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
+import com.tsaravan9.myconciergeandroid.views.ui.home.HomeFragment;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -24,7 +32,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-public class BookAmenityActivity extends AppCompatActivity {
+public class BookAmenityActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private ActivityBookAmenityBinding binding;
     private String currentAmenity;
@@ -37,6 +45,10 @@ public class BookAmenityActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private String earliestSlot;
     private String currentTime;
+    private int pos;
+    private int sendSlot;
+    private String amenity;
+    private String[] arrlist = {"6:00 AM-8:00 AM","8:00 AM-10:00 AM","10:00 AM-12:00 PM","12:00 PM-02:00 PM", "02:00 PM-04:00 PM", "04:00 PM-06:00 PM", "06:00 PM-08:00 PM", "08:00 PM-10:00 PM"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +61,15 @@ public class BookAmenityActivity extends AppCompatActivity {
         prefs = getApplicationContext().getSharedPreferences(getPackageName(), MODE_PRIVATE);
         loggedInUserEmail = prefs.getString("USER_EMAIL", "");
 
+        this.binding.calendarView.setOnDateChangeListener(this);
+        this.binding.bookBtn.setOnClickListener(this);
+        this.binding.spinner.setOnItemSelectedListener(this);
+
+        amenity = getIntent().getExtras().getString("AMENITY_NAME");
+
         usersViewModel = UsersViewModel.getInstance(this.getApplication());
         usersDBRepository = usersViewModel.getUserRepository();
         book();
-
 
     }
 
@@ -80,9 +97,9 @@ public class BookAmenityActivity extends AppCompatActivity {
         availableSlots.put(date, slots);
     }
 
-    private void makeBooking(LocalDate date, Integer slot) throws Exception {
+    private void makeBooking(String date, Integer slot) throws Exception {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
-        String bookedFor = dtf.format(date);
+        String bookedFor = date;
         Booking booking = new Booking(currentAmenity, slot, resident.getFirstname() + " " + resident.getLastname(),
                 resident.getApartment(), System.currentTimeMillis(), bookedFor);
         usersViewModel.makeBooking(booking);
@@ -92,6 +109,9 @@ public class BookAmenityActivity extends AppCompatActivity {
         Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
         String str = booking.getAmenityName() + booking.getSlot() + booking.getBookedFor() + booking.getResident() + booking.getApartment() + format.format(date2);
         intent.putExtra("INFO", str);
+        intent.putExtra("AMENITY_NAME", amenity);
+        intent.putExtra("AMENITY_DATE", date);
+        intent.putExtra("AMENITY_TIME", pos);
         startActivity(intent);
     }
 
@@ -103,14 +123,14 @@ public class BookAmenityActivity extends AppCompatActivity {
                 resident = user;
                 usersDBRepository.currentBuilding = resident.getAddress();
                 //temporary hardcoding
-                usersViewModel.getBookings("Pool Room");
+                usersViewModel.getBookings(amenity);
                 usersViewModel.allBookings.observe(BookAmenityActivity.this, new Observer<List<Booking>>() {
                     @Override
                     public void onChanged(List<Booking> bookings) {
                         prepareEarliest(false);
                         prepareAvailableSlots(bookings);
                         try {
-                            test("Pool Room");
+                            test(amenity);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -131,7 +151,7 @@ public class BookAmenityActivity extends AppCompatActivity {
             for (Integer obj : set) {
                 if (obj.equals(12)){
                     LocalDate localDate = LocalDate.now();
-                    makeBooking(localDate, obj);
+                    makeBooking(localDate.toString(), obj);
                 }
             }
         }
@@ -160,7 +180,81 @@ public class BookAmenityActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+        String prepareDate = (year+"/"+month+1+"/"+dayOfMonth);
+        date = prepareDate;
 
+        if(availableSlots.containsKey(prepareDate)) {
+            HashSet<Integer> newSlots = availableSlots.get(prepareDate);
+            Log.d("integer", newSlots.toString());
+        } else {
+            Log.d("integer", "haha");
+        }
 
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrlist );
+        spinner.setAdapter(adapter);
+    }
 
+    @Override
+    public void onClick(View v) {
+        if (v != null) {
+            switch (v.getId()) {
+                case R.id.bookBtn: {
+                    try {
+                        makeBooking(date, sendSlot);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("a", position + "");
+        pos = position;
+        switch (pos) {
+            case 0: {
+                sendSlot = 6;
+                break;
+            }
+            case 1: {
+                sendSlot = 8;
+                break;
+            }
+            case 2: {
+                sendSlot = 10;
+                break;
+            }
+            case 3: {
+                sendSlot = 12;
+                break;
+            }
+            case 4: {
+                sendSlot = 14;
+                break;
+            }
+            case 5: {
+                sendSlot = 16;
+                break;
+            }
+            case 6: {
+                sendSlot = 18;
+                break;
+            }
+            case 7: {
+                sendSlot = 20;
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

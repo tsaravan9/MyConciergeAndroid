@@ -1,5 +1,7 @@
 package com.tsaravan9.myconciergeandroid.views.ui.home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,15 +13,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.FragmentHomeBinding;
 import com.tsaravan9.myconciergeandroid.models.Announcement;
 import com.tsaravan9.myconciergeandroid.models.Delivery;
 import com.tsaravan9.myconciergeandroid.models.User;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
+import com.tsaravan9.myconciergeandroid.views.MainActivity;
+import com.tsaravan9.myconciergeandroid.views.admin.BuildingsListActivity;
+import com.tsaravan9.myconciergeandroid.views.resident.BookAmenityActivity;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private FragmentHomeBinding binding;
     private UsersViewModel usersViewModel;
@@ -42,6 +48,15 @@ public class HomeFragment extends Fragment {
         this.binding.textView5.setText(fullName);
         getAnnouncements();
         getActivityLog();
+
+        this.binding.swimming.setOnClickListener(this);
+        this.binding.gym.setOnClickListener(this);
+        this.binding.snooker.setOnClickListener(this);
+
+        this.binding.swimmingImg.setOnClickListener(this);
+        this.binding.gymImg.setOnClickListener(this);
+        this.binding.snookerImg.setOnClickListener(this);
+
         return root;
         //TODO: test this below method to migrate the firebase calls to view models
 //        homeViewModel.getAnnouncements().observe(getViewLifecycleOwner(), binding.textView5::setText);
@@ -91,4 +106,33 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
+    private void bookAmenity() {
+        Log.d("lol", "lol");
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v != null) {
+            switch (v.getId()) {
+                case R.id.swimmingImg: {
+                    Intent intent = new Intent(HomeFragment.this.getActivity(), BookAmenityActivity.class);
+                    intent.putExtra("AMENITY_NAME", "SWIMMING");
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.gymImg: {
+                    Intent intent = new Intent(HomeFragment.this.getActivity(), BookAmenityActivity.class);
+                    intent.putExtra("AMENITY_NAME", "GYM");
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.snookerImg: {
+                    Intent intent = new Intent(HomeFragment.this.getActivity(), BookAmenityActivity.class);
+                    intent.putExtra("AMENITY_NAME", "SNOOKER");
+                    startActivity(intent);
+                    break;
+                }
+            }
+        }
+    }
 }

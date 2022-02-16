@@ -33,6 +33,7 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
     private Delivery currentVisitor;
     private int current = -1;
     private SharedPreferences prefs;
+    private boolean flag = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -103,12 +104,15 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
     }
 
     private void filterForVisitors(){
-        for (Delivery delivery : allDeliveries){
-            if (delivery.getVisitor()){
-                if (delivery.isRejected() == false && delivery.isAllowed() == false){
-                    visitors.add(delivery);
+        if (!flag){
+            for (Delivery delivery : allDeliveries){
+                if (delivery.getVisitor()){
+                    if (delivery.isRejected() == false && delivery.isAllowed() == false){
+                        visitors.add(delivery);
+                    }
                 }
             }
+            flag = true;
         }
         Log.d("visitors", visitors.toString());
     }
@@ -128,7 +132,8 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
         Log.d("current Num", current + "");
         if (current >= visitors.size()){
             //no requests pending - UI
-            this.binding.textView2.setText("-");
+            this.binding.clAcceptReject.setVisibility(View.GONE);
+            this.binding.tvNoRequests.setVisibility(View.VISIBLE);
             currentVisitor = null;
         }
         else{
