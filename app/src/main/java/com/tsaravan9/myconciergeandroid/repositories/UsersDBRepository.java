@@ -99,6 +99,28 @@ public class UsersDBRepository {
         }
     }
 
+    public void updateUserPic(User newUser) {
+        try {
+            DB.collection(COLLECTION_USERS)
+                    .document(newUser.getEmail())
+                    .update("proPic", newUser.getProPic())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "onSuccess: Document Added successfully");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "onFailure: Error while creating document " + e.getLocalizedMessage());
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "addFriend: " + ex.getLocalizedMessage());
+        }
+    }
+
     public void getAllBuildingsList() throws Exception {
         try {
             DB.collection(COLLECTION_BUILDINGS)
@@ -636,8 +658,8 @@ public class UsersDBRepository {
         }
     }
 
-    public void makeBooking(Booking newBooking){
-        try{
+    public void makeBooking(Booking newBooking) {
+        try {
             Map<String, Object> data = new HashMap<>();
             data.put("bookedAt", newBooking.getBookedAt());
             data.put("bookedFor", newBooking.getBookedFor());
@@ -667,7 +689,7 @@ public class UsersDBRepository {
                                             .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
-                                                    Log.e(TAG, "onFailure: Error while creating document " + e.getLocalizedMessage() );
+                                                    Log.e(TAG, "onFailure: Error while creating document " + e.getLocalizedMessage());
                                                 }
                                             });
                                 }
@@ -755,8 +777,6 @@ public class UsersDBRepository {
             Log.e(TAG, String.valueOf(ex.getStackTrace()));
         }
     }
-
-
 
 
 }

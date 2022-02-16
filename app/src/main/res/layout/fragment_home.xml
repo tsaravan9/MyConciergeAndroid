@@ -22,8 +22,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        android:layout_width="376dp"
-        android:layout_height="138dp"
+        android:layout_width="350dp"
+        android:layout_height="130dp"
         android:layout_marginTop="48dp"
         app:cardBackgroundColor="@color/browser_actions_bg_grey"
         app:cardCornerRadius="20dp"
@@ -62,9 +62,9 @@
         android:id="@+id/textView7"
         android:layout_width="360dp"
         android:layout_height="26dp"
-        android:layout_marginTop="36dp"
-        android:text="Activity Log:"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/be_vietnam"
+        android:text="Activity Log:"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.313"
@@ -72,14 +72,14 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="378dp"
+        android:layout_width="350dp"
         android:layout_height="148dp"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="236dp"
         app:cardBackgroundColor="@color/browser_actions_bg_grey"
         app:cardCornerRadius="20dp"
         app:cardElevation="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.409"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:strokeColor="@color/black"
@@ -89,38 +89,43 @@
             android:id="@+id/textView12"
             android:layout_width="351dp"
             android:layout_height="132dp"
-            android:fontFamily="@font/be_vietnam"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/be_vietnam"
             android:text="TextView" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="460dp"
+        android:id="@+id/swimming"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="408dp"
         app:cardBackgroundColor="@color/browser_actions_bg_grey"
         app:cardCornerRadius="20dp"
         app:cardElevation="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.048"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
 
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView5"-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="54dp"-->
-<!--            android:src="@drawable/swim" />-->
+        <ImageView
+            android:id="@+id/swimmingImg"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/swim" />
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="460dp"
+        android:id="@+id/gym"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="408dp"
         app:cardBackgroundColor="@color/browser_actions_bg_grey"
         app:cardCornerRadius="20dp"
         app:cardElevation="30dp"
@@ -132,11 +137,76 @@
         app:strokeWidth="1dp">
 
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView5"-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="54dp"-->
-<!--            android:src="@drawable/swim" />-->
+        <ImageView
+            android:id="@+id/gymImg"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/weightlifter" />
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/snooker"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="408dp"
+        app:cardBackgroundColor="@color/browser_actions_bg_grey"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+
+        <ImageView
+            android:id="@+id/snookerImg"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            android:clickable="true"
+            android:onClick="bookAmenity"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/pooltable" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="80dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Gym"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.711"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swimming" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="79dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Snooker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/snooker" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="77dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Swimming Pool"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swimming" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

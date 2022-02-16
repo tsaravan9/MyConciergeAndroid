@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clPackageDetails"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.admin.EnterPackageDetailsActivity">
@@ -93,38 +94,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_package_description" />
 
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="107dp"
-        android:layout_height="109dp"
-        android:layout_marginTop="68dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/newpackage" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="93dp"
-        android:layout_height="99dp"
-        android:layout_marginTop="68dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
-        app:layout_constraintStart_toEndOf="@+id/imageView11"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/visitors" />
+        <ImageView
+            android:layout_width="107dp"
+            android:layout_height="109dp"
+            app:srcCompat="@drawable/newpackage"
+            tools:layout_editor_absoluteX="134dp"
+            tools:layout_editor_absoluteY="69dp" />
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="88dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView11"
-        app:layout_constraintHorizontal_bias="0.784"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fastfood" />
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/fastfood"
+            tools:layout_editor_absoluteY="76dp" />
+
+        <ImageView
+            android:layout_width="93dp"
+            android:layout_height="99dp"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/visitors"
+            tools:layout_editor_absoluteX="253dp"
+            tools:layout_editor_absoluteY="71dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

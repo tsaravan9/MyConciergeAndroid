@@ -27,6 +27,10 @@ public class QRActivity extends AppCompatActivity {
     QRGEncoder qrgEncoder;
     private ActivityQractivityBinding binding;
     private String info;
+    private String amenity;
+    private String date;
+    private int time;
+    private String timeslot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,10 @@ public class QRActivity extends AppCompatActivity {
         setContentView(this.binding.getRoot());
 
         info = getIntent().getExtras().getString("INFO");
+
+        amenity = getIntent().getExtras().getString("AMENITY_NAME");
+        date = getIntent().getExtras().getString("AMENITY_DATE");
+        time = getIntent().getExtras().getInt("AMENITY_TIME");
 
         qrCodeIV = this.binding.idIVQrcode;
 
@@ -81,11 +89,51 @@ public class QRActivity extends AppCompatActivity {
                 Log.e("Tag", e.toString());
             }
         }
+
+        prepareTimeslot(time);
+        this.binding.congratsText.setText("Congratulations! Your booking has been done for"+amenity+" on " +date+ "from "+timeslot);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+    }
+
+    private void prepareTimeslot(int pos) {
+        switch (pos) {
+            case 0: {
+                timeslot = "6:00 AM - 8:00 AM";
+                break;
+            }
+            case 1: {
+                timeslot = "8:00 AM - 10:00 AM";
+                break;
+            }
+            case 2: {
+                timeslot = "10:00 AM - 12:00 PM";
+                break;
+            }
+            case 3: {
+                timeslot = "12:00 PM - 2:00 PM";
+                break;
+            }
+            case 4: {
+                timeslot = "2:00 PM - 4:00 PM";
+                break;
+            }
+            case 5: {
+                timeslot = "4:00 PM - 6:00 PM";
+                break;
+            }
+            case 6: {
+                timeslot = "6:00 PM - 8:00 PM";
+                break;
+            }
+            case 7: {
+                timeslot = "8:00 PM - 10:00 PM";
+                break;
+            }
+        }
     }
 }
