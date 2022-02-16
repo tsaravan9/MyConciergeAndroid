@@ -49,7 +49,7 @@ public class BuildingsListActivity extends AppCompatActivity {
             public void onChanged(List<Building> buildings) {
                 //update RecyclerView Later
                 //Toast.makeText(MainActivity.this, "On Changed", Toast.LENGTH_SHORT).show();
-                if (buildings != null) {
+                if (buildings != null){
                     adapter.setBuildings(buildings);
                     adapter.setOnItemClickListener(new BuildingAdapter.OnItemClickListener() {
                         @Override
@@ -88,6 +88,4 @@ public class BuildingsListActivity extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
-
-
 }

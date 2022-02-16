@@ -98,6 +98,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         binding = null;
     }
 
+    private void bookAmenity() {
+        Log.d("lol", "lol");
+    }
+
     @Override
     public void onClick(View v) {
         if (v != null) {
