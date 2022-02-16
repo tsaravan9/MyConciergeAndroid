@@ -1,12 +1,15 @@
 package com.tsaravan9.myconciergeandroid.views.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityBuildingsListBinding;
@@ -25,6 +28,7 @@ public class ResidentsListActivity extends AppCompatActivity {
     private ActivityResidentsListBinding binding;
     private UsersViewModel usersViewModel;
     private UsersDBRepository usersDBRepository;
+    private ResidentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class ResidentsListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        ResidentAdapter adapter = new ResidentAdapter();
+        adapter = new ResidentAdapter();
         recyclerView.setAdapter(adapter);
 
         usersViewModel = UsersViewModel.getInstance(this.getApplication());
@@ -75,5 +79,27 @@ public class ResidentsListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Type here to search");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 }

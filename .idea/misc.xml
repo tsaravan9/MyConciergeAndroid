@@ -16,8 +16,10 @@
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/building_item.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_accept_reject.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_global_chat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/resident_item.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu.xml" value="0.16666666666666666" />
       </map>
     </option>
   </component>

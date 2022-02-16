@@ -44,17 +44,11 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
         usersViewModel.allTexts.observe(this, new Observer<List<Text>>() {
             @Override
             public void onChanged(List<Text> texts) {
-                //update RecyclerView Later
-                //Toast.makeText(MainActivity.this, "On Changed", Toast.LENGTH_SHORT).show();
+                binding.tvChat.setText("");
                 if (texts != null){
 //                    setTexts(texts);
-                    Log.d("countHere",""+texts.size());
-                    if (texts2 == null){
-                        texts2 = texts;
-                    }
-                    else{
-                        texts2.addAll(texts);
-                    }
+                    Log.d("texts", texts.toString());
+                    texts2 = texts;
                     prepareChat();
                 }
             }
