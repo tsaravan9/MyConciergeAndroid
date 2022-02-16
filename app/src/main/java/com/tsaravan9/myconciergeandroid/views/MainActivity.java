@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.models.Announcement;
 import com.tsaravan9.myconciergeandroid.models.Delivery;
@@ -59,10 +60,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkIfUserPrefExisted() {
-        if (prefs.contains("USER_EMAIL") && prefs.contains("USER_PASSWORD")) {
-            String mail = prefs.getString("USER_EMAIL", "");
-            String pass = prefs.getString("USER_PASSWORD", "");
-            this.signIn(mail, pass);
+        FirebaseUser currentUser = this.mAuth.getCurrentUser();
+        if (currentUser != null && prefs.contains("USER_EMAIL")) {
+            if (currentUser.getEmail().equalsIgnoreCase(prefs.getString("USER_EMAIL", ""))) {
+                Log.d(TAG, "onComplete: Sign In Successful");
+                userdb.loggedInUserEmail = currentUser.getEmail();
+                usersViewModel.searchUserByEmail(currentUser.getEmail());
+                goToDashboardPage();
+            }
         }
     }
 
@@ -128,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.d(TAG, "onComplete: Sign In Successful");
                             userdb.loggedInUserEmail = email;
                             usersViewModel.searchUserByEmail(email);
-                            saveToPrefs(email, password);
+                            saveToPrefs(email);
                             goToDashboardPage();
                             //testBooking();
                         } else {
@@ -147,11 +152,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    private void saveToPrefs(String email, String password) {
-        prefs.edit().putString("USER_EMAIL", email).apply();
+    private void saveToPrefs(String email) {
         if (this.activityMainBinding.chkBox.isChecked()) {
             prefs.edit().putString("USER_EMAIL", email).apply();
-            prefs.edit().putString("USER_PASSWORD", password).apply();
         }
     }
 
@@ -160,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onChanged(User user) {
                 matchedUser = user;
-                Log.d("userLogin", matchedUser.getAdmin()+"");
+                Log.d("userLogin", matchedUser.getAdmin() + "");
                 if (matchedUser.getAdmin()) {
                     Intent intent = new Intent(MainActivity.this, BuildingsListActivity.class);
                     startActivity(intent);
@@ -173,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //temporary method
-    private void testBooking(){
+    private void testBooking() {
         Intent intent = new Intent(MainActivity.this, BookAmenityActivity.class);
         startActivity(intent);
     }

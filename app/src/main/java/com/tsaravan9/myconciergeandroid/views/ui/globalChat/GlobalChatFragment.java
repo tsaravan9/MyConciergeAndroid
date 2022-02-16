@@ -64,6 +64,8 @@ public class GlobalChatFragment extends Fragment implements View.OnClickListener
                         texts2.addAll(texts);
                     }
                     prepareChat();
+                    binding.pbLoading.setVisibility(View.GONE);
+                    binding.llcGlobalChat.setVisibility(View.VISIBLE);
                 }
             }
         });
