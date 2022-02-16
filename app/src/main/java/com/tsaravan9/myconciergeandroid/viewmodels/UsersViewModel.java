@@ -107,8 +107,17 @@ public class UsersViewModel extends AndroidViewModel {
         this.usersDBRepository.updateDelivery(updatedDelivery);
     }
 
+    public void updateBuilding(Building updatedBuilding) {
+        this.usersDBRepository.updateBuilding(updatedBuilding);
+    }
+
     public void searchUserByEmail(String email) {
         this.usersDBRepository.searchUserByEmail(email);
     }
+
+    public void searchBuildingByAddress(String address) {
+        this.usersDBRepository.searchBuildingByAddress(address);
+    }
+
 
 }

@@ -4,13 +4,13 @@
     <item
         android:id="@+id/menu_makeAnnouncements"
         android:icon="@drawable/ic_baseline_add_alert_24"
-        android:title="Make Announcement"
+        android:title="Announce"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_globalChat"
         android:icon="@drawable/ic_baseline_chat_24"
-        android:title="Announce"
+        android:title="Global Chat"
         app:showAsAction="always" />
 
     <item

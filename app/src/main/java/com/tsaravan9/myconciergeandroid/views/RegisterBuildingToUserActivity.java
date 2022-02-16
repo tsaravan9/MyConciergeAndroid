@@ -35,6 +35,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityRegisterBuildingToUserBinding;
 import com.tsaravan9.myconciergeandroid.helpers.LocationHelper;
+import com.tsaravan9.myconciergeandroid.models.Building;
 import com.tsaravan9.myconciergeandroid.models.User;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 
@@ -56,6 +57,7 @@ public class RegisterBuildingToUserActivity extends AppCompatActivity implements
     private String buildingSelected;
     private User userData;
     private FirebaseAuth mAuth;
+    private Building matchedBuilding;
 
 
     @Override
@@ -239,7 +241,8 @@ public class RegisterBuildingToUserActivity extends AppCompatActivity implements
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             try {
-                                UsersViewModel.getInstance(getApplication()).addUser(newUser);
+                                usersViewModel.addUser(newUser);
+                                searchBuildingByAddress(newUser.getAddress());
                                 Toast.makeText(RegisterBuildingToUserActivity.this, "Sign up Successful", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(RegisterBuildingToUserActivity.this, MainActivity.class);
                                 startActivity(intent);
@@ -259,4 +262,17 @@ public class RegisterBuildingToUserActivity extends AppCompatActivity implements
 //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //
 //    }
+
+    private void searchBuildingByAddress(String address){
+        usersViewModel.searchUserByEmail(address);
+        this.usersViewModel.getUserRepository().buildingFromDB.observe(RegisterBuildingToUserActivity.this, new Observer<Building>() {
+            @Override
+            public void onChanged(Building building) {
+                matchedBuilding = building;
+                int i = matchedBuilding.getTotalResidents();
+                matchedBuilding.setTotalResidents(i + 1);
+                usersViewModel.updateBuilding(matchedBuilding);
+            }
+        });
+    }
 }

@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.OrderBy;
 import com.tsaravan9.myconciergeandroid.models.Announcement;
 import com.tsaravan9.myconciergeandroid.models.Booking;
 import com.tsaravan9.myconciergeandroid.models.Building;
@@ -48,6 +49,7 @@ public class UsersDBRepository {
     public MutableLiveData<List<Delivery>> allDeliveries = new MutableLiveData<>();
     public MutableLiveData<List<Booking>> allBookings = new MutableLiveData<>();
     public MutableLiveData<User> userFromDB = new MutableLiveData<>();
+    public MutableLiveData<Building> buildingFromDB = new MutableLiveData<>();
     public User loggedInUser = new User();
 
 
@@ -509,6 +511,7 @@ public class UsersDBRepository {
                                     DB.collection(COLLECTION_BUILDINGS)
                                             .document(task.getResult().getDocuments().get(0).getId())
                                             .collection(COLLECTION_ANNOUNCEMENTS)
+                                            .orderBy("postedAt", Query.Direction.DESCENDING)
                                             .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
@@ -566,6 +569,7 @@ public class UsersDBRepository {
             DB.collection(COLLECTION_USERS)
                     .document(loggedInUserEmail)
                     .collection(COLLECTION_PACKAGES)
+                    .orderBy("enteredAt", Query.Direction.DESCENDING)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
@@ -775,6 +779,84 @@ public class UsersDBRepository {
         } catch (Exception ex) {
             Log.e(TAG, "getAllFriends: Exception occured " + ex.getLocalizedMessage());
             Log.e(TAG, String.valueOf(ex.getStackTrace()));
+        }
+    }
+
+    public void updateBuilding(Building updatedBuilding) {
+
+        Map<String, Object> updatedInfo = new HashMap<>();
+        updatedInfo.put("totalResidents", updatedBuilding.getTotalResidents());
+
+        try {
+            DB.collection(COLLECTION_BUILDINGS)
+                    .whereEqualTo("address", updatedBuilding.getAddress())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
+                                    DB.collection(COLLECTION_BUILDINGS)
+                                            .document(task.getResult().getDocuments().get(0).getId())
+                                            .update(updatedInfo)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d(TAG, "onSuccess: Document successfully updated");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e(TAG, "onFailure: Unable to update document" + e.getLocalizedMessage());
+                                                }
+                                            });
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Failed", "Document Not Found");
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "updateFriend: Exception occured " + ex.getLocalizedMessage());
+        }
+    }
+
+    public void searchBuildingByAddress(String address) {
+        try {
+            DB.collection(COLLECTION_BUILDINGS).whereEqualTo("address", address)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
+                                    Building matchedBuilding = task.getResult().getDocuments().get(0).toObject(Building.class);
+
+                                    if (matchedBuilding != null) {
+                                        buildingFromDB.postValue(matchedBuilding);
+                                    } else {
+                                        Log.e(TAG, "onComplete: Unable to convert the matching document to Friend object");
+                                    }
+
+                                } else {
+                                    //no friend with given name
+                                    Log.e(TAG, "onComplete: No friend with give name found");
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "searchFriendByName: Exception occured " + ex.getLocalizedMessage());
         }
     }
 
