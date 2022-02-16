@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityBuildingsListBinding;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityEnterPackageDetailsBinding;
@@ -28,6 +29,7 @@ public class EnterPackageDetailsActivity extends AppCompatActivity implements Vi
     private UsersViewModel usersViewModel;
     private Boolean isVisitor = false;
     private SharedPreferences prefs;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +116,8 @@ public class EnterPackageDetailsActivity extends AppCompatActivity implements Vi
         if (prefs.contains("USER_EMAIL")) {
             prefs.edit().remove("USER_EMAIL").apply();
         }
-        if (prefs.contains("USER_PASSWORD")) {
-            prefs.edit().remove("USER_PASSWORD").apply();
-        }
+        this.mAuth = FirebaseAuth.getInstance();
+        this.mAuth.signOut();
         Intent logOutIntent = new Intent(this, MainActivity.class);
         startActivity(logOutIntent);
     }

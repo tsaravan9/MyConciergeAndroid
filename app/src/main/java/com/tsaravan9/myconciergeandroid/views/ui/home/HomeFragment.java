@@ -1,5 +1,7 @@
 package com.tsaravan9.myconciergeandroid.views.ui.home;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -32,6 +35,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private User loggedInUser;
     private List<Announcement> announcements;
     private List<Delivery> deliveries;
+    ProgressDialog progressDialog;
+    private Activity context;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,9 +45,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        if (announcements != null){
+        if (announcements != null) {
             Log.d("announcements", announcements.toString());
         }
+        context = this.getActivity();
         this.usersViewModel = UsersViewModel.getInstance(this.getActivity().getApplication());
         loggedInUser = usersViewModel.getUserRepository().loggedInUser;
         String fullName = "Hi, " + loggedInUser.getFirstname() + " " + loggedInUser.getLastname();
@@ -78,14 +85,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    private void displayAnnouncements(){
+    private void displayAnnouncements() {
         for (Announcement announcement : announcements) {
             Log.d("testMe", announcement.toString());
             binding.textView11.append(announcement.getDescription());
         }
     }
 
-    private void displayDeliveries(){
+    private void displayDeliveries() {
         for (Delivery delivery : deliveries) {
             binding.textView12.append(delivery.getDescription());
         }

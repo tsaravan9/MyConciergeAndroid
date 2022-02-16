@@ -32,6 +32,7 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -60,6 +61,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     StorageReference storageReference;
     private Uri filePath;
     ProgressDialog progressDialog;
+    private FirebaseAuth mAuth;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -231,9 +233,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (prefs.contains("USER_EMAIL")) {
             prefs.edit().remove("USER_EMAIL").apply();
         }
-        if (prefs.contains("USER_PASSWORD")) {
-            prefs.edit().remove("USER_PASSWORD").apply();
-        }
+        this.mAuth = FirebaseAuth.getInstance();
+        this.mAuth.signOut();
         Intent logOutIntent = new Intent(context, MainActivity.class);
         startActivity(logOutIntent);
     }
