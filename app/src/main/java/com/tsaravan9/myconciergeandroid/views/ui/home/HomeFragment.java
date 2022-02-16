@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.safetynet.VerifyAppsConstants;
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.FragmentHomeBinding;
 import com.tsaravan9.myconciergeandroid.models.Announcement;
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         String fullName = "Hi, " + loggedInUser.getFirstname() + " " + loggedInUser.getLastname();
         this.binding.textView5.setText(fullName);
         getData();
+
 
         this.binding.swimmingImg.setOnClickListener(this);
         this.binding.gymImg.setOnClickListener(this);
@@ -90,13 +92,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void displayAnnouncements(){
         for (Announcement announcement : announcements) {
             Log.d("testMe", announcement.toString());
-            binding.textView11.append(announcement.getDescription());
+            binding.textView11.append(announcement.getTitle()+"\n"+announcement.getDescription());
+            binding.textView11.append("\n\n");
+
         }
     }
 
     private void displayDeliveries(){
         for (Delivery delivery : deliveries) {
-            binding.textView12.append(delivery.getDescription());
+            if(delivery.getVisitor()) {
+                if(delivery.isAllowed()) {
+                    binding.textView12.append("You accepted a visitor named: "+delivery.getName()+"\n");
+                } else {
+                    binding.textView12.append("You rejected a visitor named: "+delivery.getName()+"\n");
+                }
+            } else {
+                binding.textView12.append("You have a package from: "+delivery.getName()+"\n");
+            }
         }
     }
 
