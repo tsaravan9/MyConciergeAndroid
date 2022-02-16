@@ -155,7 +155,7 @@
                     android:id="@+id/fbShareClicked"
                     android:layout_width="65dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="15dp"
                     android:src="@drawable/facebook" />
 
                 <ImageView

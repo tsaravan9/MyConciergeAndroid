@@ -3,26 +3,38 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/PC/Education/AndroidPrograms/MyConciergeAndroid/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_announcements.xml" value="0.1609375" />
-        <entry key="app/src/main/res/layout/activity_book_amenity.xml" value="0.1453125" />
-        <entry key="app/src/main/res/layout/activity_buildings_list.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.1609375" />
-        <entry key="app/src/main/res/layout/activity_enter_package_details.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_global_chat.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_log.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_log_item.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_post_announcements.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_qractivity.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_residents_list.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/building_item.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_accept_reject.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_global_chat.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/resident_item.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/admin_resident_list_menu.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/menu.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1185" />
+        <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1185" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1185" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1185" />
+        <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1185" />
+        <entry key="app/src/main/res/layout/activity_announcements.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_book_amenity.xml" value="0.15399678548177081" />
+        <entry key="app/src/main/res/layout/activity_bottom_navigation.xml" value="0.30413564046223956" />
+        <entry key="app/src/main/res/layout/activity_buildings_list.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_enter_package_details.xml" value="0.26637013753255206" />
+        <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_global_chat.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_log.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_log_item.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21866302490234377" />
+        <entry key="app/src/main/res/layout/activity_package_approval.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_post_announcements.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_qractivity.xml" value="0.34853769938151047" />
+        <entry key="app/src/main/res/layout/activity_register_building_to_user.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_residents_list.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.2575912475585938" />
+        <entry key="app/src/main/res/layout/activity_signup_approval.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/building_item.xml" value="0.19983571370442707" />
+        <entry key="app/src/main/res/layout/fragment_accept_reject.xml" value="0.21611721611721613" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.10729166666666666" />
+        <entry key="app/src/main/res/layout/fragment_global_chat.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3575" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25480499267578127" />
+        <entry key="app/src/main/res/layout/resident_item.xml" value="0.22888997395833333" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3040751139322917" />
       </map>
     </option>
   </component>

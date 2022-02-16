@@ -36,7 +36,7 @@ public class EnterPackageDetailsActivity extends AppCompatActivity implements Vi
         setContentView(this.binding.getRoot());
 
         prefs = getApplicationContext().getSharedPreferences(getPackageName(), MODE_PRIVATE);
-
+        binding.visitorImg.setVisibility(View.GONE);
         this.binding.switchPackageVisitor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -48,6 +48,8 @@ public class EnterPackageDetailsActivity extends AppCompatActivity implements Vi
                     isVisitor = false;
                     binding.editPackageName.setText("");
                     binding.editPackageDescription.setText("");
+                    binding.visitorImg.setVisibility(View.GONE);
+                    binding.packageImg.setVisibility(View.VISIBLE);
                 } else {
                     binding.tvPackageName.setText("Visitor Name");
                     binding.editPackageName.setHint("Enter Visitor's Name");
@@ -56,11 +58,14 @@ public class EnterPackageDetailsActivity extends AppCompatActivity implements Vi
                     isVisitor = true;
                     binding.editPackageName.setText("");
                     binding.editPackageDescription.setText("");
+                    binding.packageImg.setVisibility(View.GONE);
+                    binding.visitorImg.setVisibility(View.VISIBLE);
                 }
             }
         });
 
         this.binding.btnSubmitPackage.setOnClickListener(this);
+
         usersViewModel = UsersViewModel.getInstance(this.getApplication());
     }
 

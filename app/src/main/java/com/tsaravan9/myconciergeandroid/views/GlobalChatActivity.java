@@ -119,7 +119,7 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
     }
 
     private String prepareText(String chat, Text text){
-        chat = "Message from: "+chat + "\n" + text.getSender() + "\n";
+        chat = chat + "\n" + "Message from: "+ text.getSender() + "\n";
         int size = text.getMessage().length();
         for (int i = 0; i<size; i++){
             if (i == 30){
