@@ -52,9 +52,6 @@ public class UsersDBRepository {
 
 
     private final String COLLECTION_BUILDINGS = "Buildings";
-    private final String COLLECTION_POOL_ROOM = "Pool Room";
-    private final String COLLECTION_SWIMMING_POOL = "Swimming Pool";
-    private final String COLLECTION_GYM= "Gym";
     private final String COLLECTION_CHAT = "Chat";
     private final String COLLECTION_PACKAGES = "Packages";
     private final String COLLECTION_ANNOUNCEMENTS = "Announcements";
@@ -255,9 +252,11 @@ public class UsersDBRepository {
             Map<String, Object> data = new HashMap<>();
             data.put("name", newPackage.getName());
             data.put("description", newPackage.getDescription());
-            data.put("isVisitor", newPackage.getVisitor());
-            data.put("isAccepted", newPackage.getAccepted());
+            data.put("visitor", newPackage.getVisitor());
+            data.put("allowed", newPackage.isAllowed());
+            data.put("rejected", newPackage.isRejected());
             data.put("enteredAt", newPackage.getEnteredAt());
+            Log.d("allowed", data.get("allowed") + "");
 
             DB.collection(COLLECTION_USERS)
                     .document(currentResident)
@@ -589,8 +588,10 @@ public class UsersDBRepository {
     }
 
     public void updateDelivery(Delivery updatedDelivery) {
+
         Map<String, Object> updatedInfo = new HashMap<>();
-        updatedInfo.put("accepted", updatedDelivery.getAccepted());
+        updatedInfo.put("allowed", updatedDelivery.isAllowed());
+        updatedInfo.put("rejected", updatedDelivery.isRejected());
 
         try {
             DB.collection(COLLECTION_USERS)

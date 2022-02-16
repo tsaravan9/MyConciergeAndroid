@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,13 +16,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.FragmentAcceptRejectBinding;
-import com.tsaravan9.myconciergeandroid.models.Announcement;
-import com.tsaravan9.myconciergeandroid.models.Building;
 import com.tsaravan9.myconciergeandroid.models.Delivery;
-import com.tsaravan9.myconciergeandroid.models.User;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
-import com.tsaravan9.myconciergeandroid.views.ForgotPasswordActivity;
-import com.tsaravan9.myconciergeandroid.views.SignupActivity;
+import com.tsaravan9.myconciergeandroid.views.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +42,7 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
         binding = FragmentAcceptRejectBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        visitors = new ArrayList<>();
         prefs = this.getActivity().getApplicationContext().getSharedPreferences(this.getActivity().getPackageName(), this.getContext().MODE_PRIVATE);
 
         usersViewModel = UsersViewModel.getInstance(this.getActivity().getApplication());
@@ -55,13 +52,14 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
         usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
             @Override
             public void onChanged(List<Delivery> deliveries) {
-                if (deliveries != null){
+                if (deliveries != null && !deliveries.isEmpty()){
+                    binding.imageView4.setOnClickListener(AcceptRejectFragment.this);
+                    binding.imageView3.setOnClickListener(AcceptRejectFragment.this);
+                    Log.d("deliveries2", deliveries.toString());
                     allDeliveries = deliveries;
                     filterForVisitors();
                     sort(visitors);
                     nextVisitor();
-                    binding.imageView4.setOnClickListener(AcceptRejectFragment.this);
-                    binding.imageView3.setOnClickListener(AcceptRejectFragment.this);
                 }
             }
         });
@@ -81,14 +79,23 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
             switch (view.getId()) {
                 case R.id.imageView4: {
                     Log.d(TAG, "onClick: Accept Button Clicked");
-                    currentVisitor.setAccepted(true);
-                    usersViewModel.updateDelivery(currentVisitor);
-                    nextVisitor();
+                    if (currentVisitor != null){
+                        currentVisitor.setAllowed(true);
+                        usersViewModel.updateDelivery(currentVisitor);
+                        Toast.makeText(this.getActivity(), "Accepted!", Toast.LENGTH_LONG).show();
+                        nextVisitor();
+                    }
                     break;
+
                 }
                 case R.id.imageView3: {
                     Log.d(TAG, "onClick: Reject Button Clicked");
-                    nextVisitor();
+                    if (currentVisitor != null){
+                        currentVisitor.setRejected(true);
+                        usersViewModel.updateDelivery(currentVisitor);
+                        Toast.makeText(this.getActivity(), "Rejected!", Toast.LENGTH_LONG).show();
+                        nextVisitor();
+                    }
                     break;
                 }
             }
@@ -98,9 +105,12 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
     private void filterForVisitors(){
         for (Delivery delivery : allDeliveries){
             if (delivery.getVisitor()){
-                visitors.add(delivery);
+                if (delivery.isRejected() == false && delivery.isAllowed() == false){
+                    visitors.add(delivery);
+                }
             }
         }
+        Log.d("visitors", visitors.toString());
     }
 
     private void sort(List<Delivery> deliveries){
@@ -115,11 +125,15 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
 
     private void nextVisitor(){
         current += 1;
-        if (current == visitors.size()){
+        Log.d("current Num", current + "");
+        if (current >= visitors.size()){
             //no requests pending - UI
+            this.binding.textView2.setText("-");
+            currentVisitor = null;
         }
         else{
             currentVisitor = visitors.get(current);
+            Log.d("current", currentVisitor.getName());
             displayRequest();
         }
 

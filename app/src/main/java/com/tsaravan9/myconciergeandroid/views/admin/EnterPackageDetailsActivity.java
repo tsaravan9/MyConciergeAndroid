@@ -45,6 +45,7 @@ public class EnterPackageDetailsActivity extends AppCompatActivity implements Vi
                     binding.editPackageName.setHint("Enter Package Name");
                     binding.tvPackageDescription.setText("Package Description");
                     binding.editPackageDescription.setHint("Enter Package Details");
+                    isVisitor = false;
                     binding.editPackageName.setText("");
                     binding.editPackageDescription.setText("");
                 } else {
@@ -99,6 +100,7 @@ public class EnterPackageDetailsActivity extends AppCompatActivity implements Vi
 
         if (validData) {
             Delivery delivery = new Delivery(name, description, this.isVisitor, System.currentTimeMillis());
+            Log.d("delivery", delivery.toString());
             this.usersViewModel.addPackage(delivery);
             Toast.makeText(this, "Information Submitted!", Toast.LENGTH_SHORT).show();
             this.binding.editPackageName.setText("");
