@@ -1,6 +1,10 @@
 package com.tsaravan9.myconciergeandroid.models;
 
+import com.google.firebase.storage.StorageReference;
+
 import java.io.Serializable;
+import java.lang.ref.Reference;
+import java.util.UUID;
 
 public class User implements Serializable {
     private String firstname = "";
@@ -11,6 +15,7 @@ public class User implements Serializable {
     private String address = "";
     private Boolean admin = false;
     private String apartment = "";
+    private String proPic = "";
 
     public User(String firstname, String lastName, String email, String pass, Long mobileNumber, Boolean isAdmin) {
         this.firstname = firstname;
@@ -32,8 +37,27 @@ public class User implements Serializable {
         this.apartment = apartment;
     }
 
-    public User() {
+    public User(String firstname, String lastname, String email, String pass, Long mobileNumber, String address, Boolean admin, String apartment, String proPic) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.pass = pass;
+        this.mobileNumber = mobileNumber;
+        this.address = address;
+        this.admin = admin;
+        this.apartment = apartment;
+        this.proPic = proPic;
+    }
 
+    public String getProPic() {
+        return proPic;
+    }
+
+    public void setProPic(String proPic) {
+        this.proPic = proPic;
+    }
+
+    public User() {
     }
 
     public String getApartment() {
@@ -110,7 +134,8 @@ public class User implements Serializable {
                 ", mobileNumber=" + mobileNumber +
                 ", address='" + address + '\'' +
                 ", admin=" + admin +
-                ", apartment=" + apartment +
+                ", apartment='" + apartment + '\'' +
+                ", proPic=" + proPic +
                 '}';
     }
 }

@@ -48,6 +48,10 @@ public class UsersViewModel extends AndroidViewModel {
         this.usersDBRepository.addUser(newUser);
     }
 
+    public void updateUserPic(User newUser) {
+        this.usersDBRepository.updateUserPic(newUser);
+    }
+
     public void addPackage(Delivery newPackage) throws Exception {
         this.usersDBRepository.addPackage(newPackage);
     }
@@ -64,7 +68,7 @@ public class UsersViewModel extends AndroidViewModel {
         this.usersDBRepository.addAnnouncement(newAnnouncement);
     }
 
-    public void getAllBuildings(){
+    public void getAllBuildings() {
         this.usersDBRepository.getAllBuildings();
         this.allBuildings = this.usersDBRepository.allBuildings;
     }
@@ -78,32 +82,32 @@ public class UsersViewModel extends AndroidViewModel {
         this.usersDBRepository.getAllBuildingsList();
         this.allbuildingsList = this.usersDBRepository.allBuildingList;
     }
-    
-    public void getAllTexts(){
+
+    public void getAllTexts() {
         this.usersDBRepository.getAllTexts();
         this.allTexts = this.usersDBRepository.allTexts;
     }
 
-    public void getAllDeliveries(){
+    public void getAllDeliveries() {
         this.usersDBRepository.getAllDeliveries();
         this.allDeliveries = this.usersDBRepository.allDeliveries;
     }
 
-    public void getAllAnnouncements(){
+    public void getAllAnnouncements() {
         this.usersDBRepository.getAllAnnouncements();
         this.allAnnouncements = this.usersDBRepository.allAnnouncements;
     }
 
-    public void getBookings(String amenityName){
+    public void getBookings(String amenityName) {
         this.usersDBRepository.getBookings(amenityName);
         this.allBookings = this.usersDBRepository.allBookings;
     }
 
-    public void updateDelivery(Delivery updatedDelivery){
+    public void updateDelivery(Delivery updatedDelivery) {
         this.usersDBRepository.updateDelivery(updatedDelivery);
     }
 
-    public void searchUserByEmail(String email){
+    public void searchUserByEmail(String email) {
         this.usersDBRepository.searchUserByEmail(email);
     }
 
