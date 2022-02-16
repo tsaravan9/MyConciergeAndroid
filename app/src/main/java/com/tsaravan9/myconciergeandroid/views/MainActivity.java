@@ -24,6 +24,7 @@ import com.tsaravan9.myconciergeandroid.repositories.UsersDBRepository;
 import com.tsaravan9.myconciergeandroid.databinding.ActivityMainBinding;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 import com.tsaravan9.myconciergeandroid.views.admin.BuildingsListActivity;
+import com.tsaravan9.myconciergeandroid.views.resident.BookAmenityActivity;
 
 import java.util.List;
 
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             usersViewModel.searchUserByEmail(email);
                             saveToPrefs(email, password);
                             goToDashboardPage();
+                            //testBooking();
                         } else {
                             Log.e(TAG, "onComplete: Sign In Failed " + task.getException().getMessage());
                             if (task.getException().getMessage().equals("The email address is badly formatted.")) {
@@ -168,5 +170,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+    }
+
+    //temporary method
+    private void testBooking(){
+        Intent intent = new Intent(MainActivity.this, BookAmenityActivity.class);
+        startActivity(intent);
     }
 }

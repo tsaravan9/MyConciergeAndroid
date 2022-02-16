@@ -32,7 +32,6 @@ public class ResidentAdapter extends RecyclerView.Adapter<ResidentAdapter.Reside
     @Override
     public void onBindViewHolder(@NonNull ResidentAdapter.ResidentHolder holder, int position) {
         User currentUser = residents.get(position);
-        Log.d("gggggg", currentUser.getFirstname() + " " + currentUser.getLastname());
         holder.textViewName.setText(currentUser.getFirstname() + " " + currentUser.getLastname());
         //set total residents here
         holder.textViewApartmentNumber.setText(currentUser.getApartment());

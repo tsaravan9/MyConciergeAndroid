@@ -1,7 +1,6 @@
 package com.tsaravan9.myconciergeandroid.repositories;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +18,11 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tsaravan9.myconciergeandroid.models.Announcement;
+import com.tsaravan9.myconciergeandroid.models.Booking;
 import com.tsaravan9.myconciergeandroid.models.Building;
 import com.tsaravan9.myconciergeandroid.models.Delivery;
 import com.tsaravan9.myconciergeandroid.models.Text;
 import com.tsaravan9.myconciergeandroid.models.User;
-import com.tsaravan9.myconciergeandroid.views.admin.PostAnnouncementsActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,11 +46,15 @@ public class UsersDBRepository {
     public MutableLiveData<List<String>> allBuildingList = new MutableLiveData<>();
     public MutableLiveData<List<Text>> allTexts = new MutableLiveData<>();
     public MutableLiveData<List<Delivery>> allDeliveries = new MutableLiveData<>();
+    public MutableLiveData<List<Booking>> allBookings = new MutableLiveData<>();
     public MutableLiveData<User> userFromDB = new MutableLiveData<>();
     public User loggedInUser = new User();
 
 
     private final String COLLECTION_BUILDINGS = "Buildings";
+    private final String COLLECTION_POOL_ROOM = "Pool Room";
+    private final String COLLECTION_SWIMMING_POOL = "Swimming Pool";
+    private final String COLLECTION_GYM= "Gym";
     private final String COLLECTION_CHAT = "Chat";
     private final String COLLECTION_PACKAGES = "Packages";
     private final String COLLECTION_ANNOUNCEMENTS = "Announcements";
@@ -631,6 +634,128 @@ public class UsersDBRepository {
             Log.e(TAG, "updateFriend: Exception occured " + ex.getLocalizedMessage());
         }
     }
+
+    public void makeBooking(Booking newBooking){
+        try{
+            Map<String, Object> data = new HashMap<>();
+            data.put("bookedAt", newBooking.getBookedAt());
+            data.put("bookedFor", newBooking.getBookedFor());
+            data.put("resident", newBooking.getResident());
+            data.put("apartment", newBooking.getApartment());
+            data.put("slot", newBooking.getSlot());
+
+            DB.collection(COLLECTION_BUILDINGS)
+                    .whereEqualTo(FIELD_ADDRESS, currentBuilding)
+                    .get()
+                    //.orderBy(FIELD_BUILDING_NAME, Query.Direction.ASCENDING)
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
+                                    DB.collection(COLLECTION_BUILDINGS)
+                                            .document(task.getResult().getDocuments().get(0).getId())
+                                            .collection(newBooking.getAmenityName())
+                                            .add(data)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference reference) {
+                                                    Log.d(TAG, "onSuccess: Document Added successfully with ID : " + reference.getId());
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e(TAG, "onFailure: Error while creating document " + e.getLocalizedMessage() );
+                                                }
+                                            });
+                                }
+                            }
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+        } catch (Exception ex) {
+            Log.e(TAG, "addFriend: " + ex.getLocalizedMessage());
+        }
+    }
+
+    public void getBookings(String amenityName) {
+        try {
+            DB.collection(COLLECTION_BUILDINGS)
+                    .whereEqualTo(FIELD_ADDRESS, currentBuilding)
+                    .get()
+                    //.orderBy(FIELD_BUILDING_NAME, Query.Direction.ASCENDING)
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().size() != 0) {
+                                    DB.collection(COLLECTION_BUILDINGS)
+                                            .document(task.getResult().getDocuments().get(0).getId())
+                                            .collection(amenityName)
+                                            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+                                                    if (error != null) {
+                                                        Log.e(TAG, "onEvent: Unable to get document changes " + error);
+                                                        return;
+                                                    }
+
+                                                    List<Booking> bookingList = new ArrayList<>();
+
+                                                    if (snapshot != null) {
+                                                        Log.d(TAG, "onEvent: Current Changes " + snapshot.getDocumentChanges());
+
+                                                        for (DocumentChange documentChange : snapshot.getDocumentChanges()) {
+
+                                                            Booking currentBooking = documentChange.getDocument().toObject(Booking.class);
+                                                            Log.d(TAG, "onEvent: currentUser : " + currentBuilding.toString());
+
+                                                            switch (documentChange.getType()) {
+                                                                case ADDED:
+                                                                    bookingList.add(currentBooking);
+                                                                    break;
+                                                                case MODIFIED:
+                                                                    //TODO - search in friendList for existing object and replace it with new one - currentFriend
+                                                                    break;
+                                                                case REMOVED:
+                                                                    bookingList.remove(currentBooking);
+                                                                    break;
+                                                            }
+                                                        }
+                                                        Log.d("woah", "here");
+                                                        allBookings.postValue(bookingList);
+
+                                                    } else {
+                                                        Log.e(TAG, "onEvent: No changes received");
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+
+        } catch (Exception ex) {
+            Log.e(TAG, "getAllFriends: Exception occured " + ex.getLocalizedMessage());
+            Log.e(TAG, String.valueOf(ex.getStackTrace()));
+        }
+    }
+
+
 
 
 }
