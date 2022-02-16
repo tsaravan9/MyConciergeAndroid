@@ -64,13 +64,14 @@ public class BuildingsListActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu, menu);
 
         MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = this.binding.search;
+        SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint("Type here to search");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

@@ -19,7 +19,7 @@ import com.tsaravan9.myconciergeandroid.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResidentAdapter extends RecyclerView.Adapter<ResidentAdapter.ResidentHolder> implements Filterable {
+public class ResidentAdapter extends RecyclerView.Adapter<ResidentAdapter.ResidentHolder> implements Filterable{
 
     private List<User> residents = new ArrayList<>();
     private List<User> tempResidents = new ArrayList<>();
