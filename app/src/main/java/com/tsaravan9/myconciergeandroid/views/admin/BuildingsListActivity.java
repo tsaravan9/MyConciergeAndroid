@@ -45,7 +45,7 @@ public class BuildingsListActivity extends AppCompatActivity {
             public void onChanged(List<Building> buildings) {
                 //update RecyclerView Later
                 //Toast.makeText(MainActivity.this, "On Changed", Toast.LENGTH_SHORT).show();
-                if (buildings != null){
+                if (buildings != null) {
                     adapter.setBuildings(buildings);
                 }
             }
@@ -69,8 +69,6 @@ public class BuildingsListActivity extends AppCompatActivity {
             public void onItemClick(Building building) {
                 BuildingsListActivity.this.usersDBRepository.currentBuilding = building.getAddress();
                 Intent intent = new Intent(BuildingsListActivity.this, ResidentsListActivity.class);
-//                Intent intent = new Intent(BuildingsListActivity.this, PostAnnouncementsActivity.class);
-                //Intent intent = new Intent(BuildingsListActivity.this, GlobalChatActivity.class);
                 startActivity(intent);
             }
         });
