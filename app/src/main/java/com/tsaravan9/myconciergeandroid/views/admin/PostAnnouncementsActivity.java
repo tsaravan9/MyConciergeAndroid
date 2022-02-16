@@ -75,4 +75,6 @@ public class PostAnnouncementsActivity extends AppCompatActivity implements View
             Toast.makeText(this, "Please provide correct inputs", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

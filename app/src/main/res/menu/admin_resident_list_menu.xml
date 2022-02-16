@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_makeAnnouncements"
+        android:icon="@drawable/ic_baseline_add_alert_24"
+        android:title="Make Announcement"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_globalChat"
+        android:icon="@drawable/ic_baseline_chat_24"
+        android:title="Make Announcement"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Settings"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/menu_logout"
+        android:icon="@drawable/ic_baseline_login_24"
+        android:title="Log Out"
+        app:showAsAction="always" />
+</menu>

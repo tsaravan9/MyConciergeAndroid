@@ -3,9 +3,11 @@ package com.tsaravan9.myconciergeandroid.views.ui.profile;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -46,14 +49,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         context = this.getActivity();
         prefs = context.getApplicationContext().getSharedPreferences(context.getPackageName(), MODE_PRIVATE);
         this.usersViewModel = UsersViewModel.getInstance(this.context.getApplication());
-        this.binding.logOut.setOnClickListener(this);
-        this.binding.llcContactUsDisplay.setOnClickListener(this);
         loggedInUser = usersViewModel.getUserRepository().loggedInUser;
         String fullName = loggedInUser.getFirstname() + " " + loggedInUser.getLastname();
         this.binding.fullNameDisplay.setText(fullName);
         this.binding.emailDisplay.setText(loggedInUser.getEmail());
         this.binding.mobileDisplay.setText("Mobile Number: " + loggedInUser.getMobileNumber());
         this.binding.addressDisplay.setText("Address:" + loggedInUser.getApartment() + " - " + loggedInUser.getAddress());
+
+        this.binding.llcContactUsDisplay.setOnClickListener(this);
+        this.binding.fbShareClicked.setOnClickListener(this);
+        this.binding.waShareClicked.setOnClickListener(this);
+        this.binding.instaShareClicked.setOnClickListener(this);
+        this.binding.logOut.setOnClickListener(this);
 
         return root;
     }
@@ -73,12 +80,35 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     break;
                 }
                 case R.id.llcContactUsDisplay: {
-                    Log.d("testContact", "here");
-                    Intent intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:" + "+14166708067"));
+                    Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:" + "+16475108066"));
                     if (intent.resolveActivity(context.getPackageManager()) != null) {
                         startActivity(intent);
                     }
+                    break;
+                }
+                case R.id.fbShareClicked: {
+                    if (isAppInstalled(context, "com.facebook.orca") || isAppInstalled(context, "com.facebook.katana")
+                            || isAppInstalled(context, "com.example.facebook") || isAppInstalled(context, "com.facebook.android")) {
+
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/{fb_page_numerical_id}")));
+                    } else {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/{fb_page_name}")));
+                    }
+                    break;
+                }
+                case R.id.waShareClicked: {
+                    Toast.makeText(context, "Instagram", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                case R.id.instaShareClicked: {
+                    if (isAppInstalled(context.getApplicationContext(), "com.instagram.android")) {
+                        Toast.makeText(context, "Instagram", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/{instagram_page_name}")));
+                    } else {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/{instagram_page_name}")));
+                    }
+                    break;
                 }
             }
         }
@@ -93,5 +123,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
         Intent logOutIntent = new Intent(context, MainActivity.class);
         startActivity(logOutIntent);
+    }
+
+    public static boolean isAppInstalled(Context context, String packageName) {
+        try {
+            context.getPackageManager().getApplicationInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 }
