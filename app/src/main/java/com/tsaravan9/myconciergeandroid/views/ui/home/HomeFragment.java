@@ -40,14 +40,13 @@ public class HomeFragment extends Fragment {
         loggedInUser = usersViewModel.getUserRepository().loggedInUser;
         String fullName = "Hi, " + loggedInUser.getFirstname() + " " + loggedInUser.getLastname();
         this.binding.textView5.setText(fullName);
-        getAnnouncements();
-        getActivityLog();
+        getData();
         return root;
         //TODO: test this below method to migrate the firebase calls to view models
 //        homeViewModel.getAnnouncements().observe(getViewLifecycleOwner(), binding.textView5::setText);
     }
 
-    private void getAnnouncements() {
+    private void getData(){
         usersViewModel.getUserRepository().currentBuilding = loggedInUser.getAddress();
         usersViewModel.getAllAnnouncements();
         usersViewModel.allAnnouncements.observe(getViewLifecycleOwner(), new Observer<List<Announcement>>() {
@@ -56,6 +55,15 @@ public class HomeFragment extends Fragment {
                 binding.textView11.setText("");
                 announcements = announcements2;
                 displayAnnouncements();
+                usersViewModel.getAllDeliveries();
+                usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
+                    @Override
+                    public void onChanged(List<Delivery> deliveries2) {
+                        binding.textView12.setText("");
+                        deliveries = deliveries2;
+                        displayDeliveries();
+                    }
+                });
             }
         });
     }
@@ -71,18 +79,6 @@ public class HomeFragment extends Fragment {
         for (Delivery delivery : deliveries) {
             binding.textView12.append(delivery.getDescription());
         }
-    }
-
-    private void getActivityLog() {
-        usersViewModel.getAllDeliveries();
-        usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
-            @Override
-            public void onChanged(List<Delivery> deliveries2) {
-                binding.textView12.setText("");
-                deliveries = deliveries2;
-                displayDeliveries();
-            }
-        });
     }
 
     @Override

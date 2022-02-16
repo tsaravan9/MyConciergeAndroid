@@ -10,6 +10,7 @@ public class Building {
     private ArrayList<String> admins;
     private ArrayList<Announcement> announcements;
     private String id;
+    private int totalResidents = 0;
 
     public Building(String image, ArrayList<String> residents, String address, ArrayList<String> admins, ArrayList<Announcement> announcements, String id) {
         this.image = image;
@@ -72,6 +73,14 @@ public class Building {
         this.announcements = announcements;
     }
 
+    public int getTotalResidents() {
+        return totalResidents;
+    }
+
+    public void setTotalResidents(int totalResidents) {
+        this.totalResidents = totalResidents;
+    }
+
     @Override
     public String toString() {
         return "Building{" +
@@ -81,6 +90,7 @@ public class Building {
                 ", admins=" + admins +
                 ", announcements=" + announcements +
                 ", id='" + id + '\'' +
+                ", totalResidents=" + totalResidents +
                 '}';
     }
 }

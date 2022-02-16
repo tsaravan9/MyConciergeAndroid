@@ -51,31 +51,17 @@ public class BuildingsListActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "On Changed", Toast.LENGTH_SHORT).show();
                 if (buildings != null){
                     adapter.setBuildings(buildings);
+                    adapter.setOnItemClickListener(new BuildingAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(Building building) {
+                            BuildingsListActivity.this.usersDBRepository.currentBuilding = building.getAddress();
+                            Intent intent = new Intent(BuildingsListActivity.this, ResidentsListActivity.class);
+                            //Intent intent = new Intent(BuildingsListActivity.this, PostAnnouncementsActivity.class);
+                            //Intent intent = new Intent(BuildingsListActivity.this, GlobalChatActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                 }
-            }
-        });
-
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                noteViewModel.delete(adaper.getNoteAt(viewHolder.getAdapterPosition()));
-//                Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
-//            }
-//        }).attachToRecyclerView(recyclerView);
-
-        adapter.setOnItemClickListener(new BuildingAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Building building) {
-                BuildingsListActivity.this.usersDBRepository.currentBuilding = building.getAddress();
-                Intent intent = new Intent(BuildingsListActivity.this, ResidentsListActivity.class);
-                //Intent intent = new Intent(BuildingsListActivity.this, PostAnnouncementsActivity.class);
-                //Intent intent = new Intent(BuildingsListActivity.this, GlobalChatActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -85,7 +71,7 @@ public class BuildingsListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
 
         MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
+        SearchView searchView = this.binding.search;
         searchView.setQueryHint("Type here to search");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -102,4 +88,6 @@ public class BuildingsListActivity extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
+
+
 }

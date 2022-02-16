@@ -1,6 +1,5 @@
 package com.tsaravan9.myconciergeandroid.views.ui.acceptReject;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +17,6 @@ import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.FragmentAcceptRejectBinding;
 import com.tsaravan9.myconciergeandroid.models.Delivery;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
-import com.tsaravan9.myconciergeandroid.views.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +59,10 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
                     filterForVisitors();
                     sort(visitors);
                     nextVisitor();
+                }
+                else{
+                    binding.clAcceptReject.setVisibility(View.GONE);
+                    binding.tvNoRequests.setVisibility(View.VISIBLE);
                 }
             }
         });
