@@ -24,14 +24,18 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private UsersViewModel usersViewModel;
     private User loggedInUser;
+    private List<Announcement> announcements;
+    private List<Delivery> deliveries;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        if (announcements != null){
+            Log.d("announcements", announcements.toString());
+        }
         this.usersViewModel = UsersViewModel.getInstance(this.getActivity().getApplication());
         loggedInUser = usersViewModel.getUserRepository().loggedInUser;
         String fullName = "Hi, " + loggedInUser.getFirstname() + " " + loggedInUser.getLastname();
@@ -44,34 +48,39 @@ public class HomeFragment extends Fragment {
     }
 
     private void getAnnouncements() {
-        binding.textView11.setText("");
         usersViewModel.getUserRepository().currentBuilding = loggedInUser.getAddress();
         usersViewModel.getAllAnnouncements();
         usersViewModel.allAnnouncements.observe(getViewLifecycleOwner(), new Observer<List<Announcement>>() {
             @Override
-            public void onChanged(List<Announcement> announcements) {
-                for (Announcement announcement : announcements) {
-                    Log.d("testMe", announcement.toString());
-                    binding.textView11.append(announcement.getDescription());
-                }
+            public void onChanged(List<Announcement> announcements2) {
+                binding.textView11.setText("");
+                announcements = announcements2;
+                displayAnnouncements();
             }
         });
     }
 
+    private void displayAnnouncements(){
+        for (Announcement announcement : announcements) {
+            Log.d("testMe", announcement.toString());
+            binding.textView11.append(announcement.getDescription());
+        }
+    }
+
+    private void displayDeliveries(){
+        for (Delivery delivery : deliveries) {
+            binding.textView12.append(delivery.getDescription());
+        }
+    }
+
     private void getActivityLog() {
-        binding.textView12.setText("");
         usersViewModel.getAllDeliveries();
         usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
             @Override
-            public void onChanged(List<Delivery> deliveries) {
-                for (Delivery delivery : deliveries) {
-                    Log.d("testMe", delivery.toString());
-                    if (delivery.getVisitor()) {
-                        delivery.setAccepted(true);
-                        usersViewModel.updateDelivery(delivery);
-                    }
-                    binding.textView12.append(delivery.getDescription());
-                }
+            public void onChanged(List<Delivery> deliveries2) {
+                binding.textView12.setText("");
+                deliveries = deliveries2;
+                displayDeliveries();
             }
         });
     }

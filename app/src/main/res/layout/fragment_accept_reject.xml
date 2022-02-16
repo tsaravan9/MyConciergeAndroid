@@ -68,7 +68,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
-            android:text="You have a new visitor : Rahul Vashist. Please accept or deny."
+            android:text="You have a new visitor : -. Please accept or deny."
             android:textSize="17dp" />
 
     </androidx.cardview.widget.CardView>
