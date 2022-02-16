@@ -98,6 +98,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void getProfilePicData() {
         if (!loggedInUser.getProPic().isEmpty()) {
+            binding.pbLoading.setVisibility(View.VISIBLE);
             StorageReference mImageRef = storage.getReference(loggedInUser.getProPic());
             final long ONE_MEGABYTE = 1024 * 1024;
             mImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -107,6 +108,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     DisplayMetrics dm = new DisplayMetrics();
                     context.getWindowManager().getDefaultDisplay().getMetrics(dm);
                     binding.proPicDisplay.setImageBitmap(bm);
+                    binding.pbLoading.setVisibility(View.GONE);
+                    binding.llcProfile.setVisibility(View.VISIBLE);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -114,6 +117,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     // Handle any errors
                 }
             });
+        }else{
+            binding.llcProfile.setVisibility(View.VISIBLE);
         }
     }
 

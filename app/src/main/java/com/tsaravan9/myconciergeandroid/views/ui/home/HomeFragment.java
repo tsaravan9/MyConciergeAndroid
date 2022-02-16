@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //        homeViewModel.getAnnouncements().observe(getViewLifecycleOwner(), binding.textView5::setText);
     }
 
-    private void getData(){
+    private void getData() {
         usersViewModel.getUserRepository().currentBuilding = loggedInUser.getAddress();
         usersViewModel.getAllAnnouncements();
         usersViewModel.allAnnouncements.observe(getViewLifecycleOwner(), new Observer<List<Announcement>>() {
@@ -79,6 +79,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         binding.textView12.setText("");
                         deliveries = deliveries2;
                         displayDeliveries();
+                        binding.pbLoading.setVisibility(View.GONE);
+                        binding.clHomeFrg.setVisibility(View.VISIBLE);
                     }
                 });
             }

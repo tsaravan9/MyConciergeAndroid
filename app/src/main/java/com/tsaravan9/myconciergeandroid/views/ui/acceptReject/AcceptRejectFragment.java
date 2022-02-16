@@ -21,7 +21,7 @@ import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AcceptRejectFragment extends Fragment implements View.OnClickListener{
+public class AcceptRejectFragment extends Fragment implements View.OnClickListener {
 
     private FragmentAcceptRejectBinding binding;
     private final String TAG = this.getClass().getCanonicalName();
@@ -51,7 +51,7 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
         usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
             @Override
             public void onChanged(List<Delivery> deliveries) {
-                if (deliveries != null && !deliveries.isEmpty()){
+                if (deliveries != null && !deliveries.isEmpty()) {
                     binding.imageView4.setOnClickListener(AcceptRejectFragment.this);
                     binding.imageView3.setOnClickListener(AcceptRejectFragment.this);
                     Log.d("deliveries2", deliveries.toString());
@@ -59,8 +59,9 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
                     filterForVisitors();
                     sort(visitors);
                     nextVisitor();
-                }
-                else{
+                    binding.pbLoading.setVisibility(View.GONE);
+                    binding.clAcptRjctFrg.setVisibility(View.VISIBLE);
+                } else {
                     binding.clAcceptReject.setVisibility(View.GONE);
                     binding.tvNoRequests.setVisibility(View.VISIBLE);
                 }
@@ -82,7 +83,7 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
             switch (view.getId()) {
                 case R.id.imageView4: {
                     Log.d(TAG, "onClick: Accept Button Clicked");
-                    if (currentVisitor != null){
+                    if (currentVisitor != null) {
                         currentVisitor.setAllowed(true);
                         usersViewModel.updateDelivery(currentVisitor);
                         Toast.makeText(this.getActivity(), "Accepted!", Toast.LENGTH_LONG).show();
@@ -93,7 +94,7 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
                 }
                 case R.id.imageView3: {
                     Log.d(TAG, "onClick: Reject Button Clicked");
-                    if (currentVisitor != null){
+                    if (currentVisitor != null) {
                         currentVisitor.setRejected(true);
                         usersViewModel.updateDelivery(currentVisitor);
                         Toast.makeText(this.getActivity(), "Rejected!", Toast.LENGTH_LONG).show();
@@ -105,11 +106,11 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    private void filterForVisitors(){
-        if (!flag){
-            for (Delivery delivery : allDeliveries){
-                if (delivery.getVisitor()){
-                    if (delivery.isRejected() == false && delivery.isAllowed() == false){
+    private void filterForVisitors() {
+        if (!flag) {
+            for (Delivery delivery : allDeliveries) {
+                if (delivery.getVisitor()) {
+                    if (delivery.isRejected() == false && delivery.isAllowed() == false) {
                         visitors.add(delivery);
                     }
                 }
@@ -119,26 +120,25 @@ public class AcceptRejectFragment extends Fragment implements View.OnClickListen
         Log.d("visitors", visitors.toString());
     }
 
-    private void sort(List<Delivery> deliveries){
+    private void sort(List<Delivery> deliveries) {
         deliveries.sort((o1, o2)
                 -> o1.getEnteredAt().compareTo(
                 o2.getEnteredAt()));
     }
 
-    private void displayRequest(){
+    private void displayRequest() {
         this.binding.textView2.setText("You have a new visitor : " + currentVisitor.getName() + ". Please accept or deny.");
     }
 
-    private void nextVisitor(){
+    private void nextVisitor() {
         current += 1;
         Log.d("current Num", current + "");
-        if (current >= visitors.size()){
+        if (current >= visitors.size()) {
             //no requests pending - UI
             this.binding.clAcceptReject.setVisibility(View.GONE);
             this.binding.tvNoRequests.setVisibility(View.VISIBLE);
             currentVisitor = null;
-        }
-        else{
+        } else {
             currentVisitor = visitors.get(current);
             Log.d("current", currentVisitor.getName());
             displayRequest();
