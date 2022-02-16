@@ -46,23 +46,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         loggedInUser = usersViewModel.getUserRepository().loggedInUser;
         String fullName = "Hi, " + loggedInUser.getFirstname() + " " + loggedInUser.getLastname();
         this.binding.textView5.setText(fullName);
-        getAnnouncements();
-        getActivityLog();
 
-        this.binding.swimming.setOnClickListener(this);
-        this.binding.gym.setOnClickListener(this);
-        this.binding.snooker.setOnClickListener(this);
-
-        this.binding.swimmingImg.setOnClickListener(this);
-        this.binding.gymImg.setOnClickListener(this);
-        this.binding.snookerImg.setOnClickListener(this);
-
+        getData();
         return root;
         //TODO: test this below method to migrate the firebase calls to view models
 //        homeViewModel.getAnnouncements().observe(getViewLifecycleOwner(), binding.textView5::setText);
     }
 
-    private void getAnnouncements() {
+    private void getData(){
         usersViewModel.getUserRepository().currentBuilding = loggedInUser.getAddress();
         usersViewModel.getAllAnnouncements();
         usersViewModel.allAnnouncements.observe(getViewLifecycleOwner(), new Observer<List<Announcement>>() {
@@ -71,6 +62,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 binding.textView11.setText("");
                 announcements = announcements2;
                 displayAnnouncements();
+                usersViewModel.getAllDeliveries();
+                usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
+                    @Override
+                    public void onChanged(List<Delivery> deliveries2) {
+                        binding.textView12.setText("");
+                        deliveries = deliveries2;
+                        displayDeliveries();
+                    }
+                });
             }
         });
     }
@@ -86,18 +86,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         for (Delivery delivery : deliveries) {
             binding.textView12.append(delivery.getDescription());
         }
-    }
-
-    private void getActivityLog() {
-        usersViewModel.getAllDeliveries();
-        usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
-            @Override
-            public void onChanged(List<Delivery> deliveries2) {
-                binding.textView12.setText("");
-                deliveries = deliveries2;
-                displayDeliveries();
-            }
-        });
     }
 
     @Override
