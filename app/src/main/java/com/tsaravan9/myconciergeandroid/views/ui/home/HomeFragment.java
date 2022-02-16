@@ -27,6 +27,7 @@ import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 import com.tsaravan9.myconciergeandroid.views.MainActivity;
 import com.tsaravan9.myconciergeandroid.views.admin.BuildingsListActivity;
 import com.tsaravan9.myconciergeandroid.views.resident.BookAmenityActivity;
+import com.tsaravan9.myconciergeandroid.views.resident.DeliveryLogActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +91,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 displayDeliveries();
                                 binding.pbLoading.setVisibility(View.GONE);
                                 binding.clHomeFrg.setVisibility(View.VISIBLE); 
+                                binding.textView12.setOnClickListener(HomeFragment.this);
                             }
                         }
                     });
@@ -150,6 +152,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 case R.id.snookerImg: {
                     Intent intent = new Intent(HomeFragment.this.getActivity(), BookAmenityActivity.class);
                     intent.putExtra("AMENITY_NAME", "SNOOKER");
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.textView12:{
+                    Intent intent = new Intent(HomeFragment.this.getActivity(), DeliveryLogActivity.class);
                     startActivity(intent);
                     break;
                 }

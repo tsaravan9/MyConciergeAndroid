@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="50dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
 
 
         <TextView
@@ -24,16 +25,8 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="Name"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/activity_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:text="Visitor/Package"
-            android:textStyle="italic" />
+            android:textStyle="bold"
+            />
 
     </LinearLayout>
 

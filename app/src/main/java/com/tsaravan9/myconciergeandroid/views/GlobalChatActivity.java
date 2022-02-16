@@ -29,6 +29,7 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
     private User matchedUser;
     private List<Text> texts2 = new ArrayList<>();
     private UsersDBRepository usersDBRepository;
+    private boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,15 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onChanged(List<Text> texts) {
                 binding.tvChat.setText("");
-                if (texts != null){
+                if (texts != null) {
 //                    setTexts(texts);
-                    Log.d("texts", texts.toString());
-                    texts2 = texts;
+                    Log.d("countHere", "" + texts.size());
+                    if (!flag){
+                        texts2 = texts;
+                    }
+                    else{
+                        texts2.addAll(texts);
+                    }
                     prepareChat();
                 }
             }
@@ -86,6 +92,7 @@ public class GlobalChatActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (validData){
+            flag = true;
             Text newText = new Text(matchedUser.getFirstname() + " " + matchedUser.getLastname(),
                     text, System.currentTimeMillis());
             this.usersViewModel.addTextToChat(newText);
