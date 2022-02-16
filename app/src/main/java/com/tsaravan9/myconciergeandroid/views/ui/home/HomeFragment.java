@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 binding.textView11.setText("");
                 if (announcements2 != null){
                     //sort1(announcements2);
-                    announcements.addAll(announcements2);
+                    announcements = announcements2;
                     displayAnnouncements();
                     usersViewModel.getAllDeliveries();
                     usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             binding.textView12.setText("");
                             if (deliveries2 != null){
                                 //sort2(deliveries2);
-                                deliveries.addAll(deliveries2);
+                                deliveries = deliveries2;
                                 displayDeliveries();
                             }
                         }
