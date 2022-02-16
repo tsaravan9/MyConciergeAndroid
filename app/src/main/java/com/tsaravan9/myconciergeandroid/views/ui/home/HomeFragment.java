@@ -18,12 +18,14 @@ import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.databinding.FragmentHomeBinding;
 import com.tsaravan9.myconciergeandroid.models.Announcement;
 import com.tsaravan9.myconciergeandroid.models.Delivery;
+import com.tsaravan9.myconciergeandroid.models.Text;
 import com.tsaravan9.myconciergeandroid.models.User;
 import com.tsaravan9.myconciergeandroid.viewmodels.UsersViewModel;
 import com.tsaravan9.myconciergeandroid.views.MainActivity;
 import com.tsaravan9.myconciergeandroid.views.admin.BuildingsListActivity;
 import com.tsaravan9.myconciergeandroid.views.resident.BookAmenityActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -31,8 +33,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private FragmentHomeBinding binding;
     private UsersViewModel usersViewModel;
     private User loggedInUser;
-    private List<Announcement> announcements;
-    private List<Delivery> deliveries;
+    private List<Announcement> announcements = new ArrayList<>();
+    private List<Delivery> deliveries = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,12 +49,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         loggedInUser = usersViewModel.getUserRepository().loggedInUser;
         String fullName = "Hi, " + loggedInUser.getFirstname() + " " + loggedInUser.getLastname();
         this.binding.textView5.setText(fullName);
+        getData();
 
 
         this.binding.swimmingImg.setOnClickListener(this);
         this.binding.gymImg.setOnClickListener(this);
         this.binding.snookerImg.setOnClickListener(this);
-        getData();
+
         return root;
         //TODO: test this below method to migrate the firebase calls to view models
 //        homeViewModel.getAnnouncements().observe(getViewLifecycleOwner(), binding.textView5::setText);
@@ -65,17 +68,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onChanged(List<Announcement> announcements2) {
                 binding.textView11.setText("");
-                announcements = announcements2;
-                displayAnnouncements();
-                usersViewModel.getAllDeliveries();
-                usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
-                    @Override
-                    public void onChanged(List<Delivery> deliveries2) {
-                        binding.textView12.setText("");
-                        deliveries = deliveries2;
-                        displayDeliveries();
-                    }
-                });
+                if (announcements2 != null){
+                    //sort1(announcements2);
+                    announcements.addAll(announcements2);
+                    displayAnnouncements();
+                    usersViewModel.getAllDeliveries();
+                    usersViewModel.allDeliveries.observe(getViewLifecycleOwner(), new Observer<List<Delivery>>() {
+                        @Override
+                        public void onChanged(List<Delivery> deliveries2) {
+                            binding.textView12.setText("");
+                            if (deliveries2 != null){
+                                //sort2(deliveries2);
+                                deliveries.addAll(deliveries2);
+                                displayDeliveries();
+                            }
+                        }
+                    });
+                }
             }
         });
     }
@@ -138,4 +147,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         }
     }
+
+//    private void sort1(List<Announcement> announcements2) {
+//        announcements2.sort((o1, o2)
+//                -> o1.getPostedAt().compareTo(
+//                o2.getPostedAt()));
+//        announcements.addAll(announcements2);
+//    }
+//
+//    private void sort2(List<Delivery> deliveries2) {
+//        deliveries2.sort((o1, o2)
+//                -> o1.getEnteredAt().compareTo(
+//                o2.getEnteredAt()));
+//        deliveries.addAll(deliveries2);
+//    }
 }

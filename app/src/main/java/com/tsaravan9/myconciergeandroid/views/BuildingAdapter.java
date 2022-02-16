@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsaravan9.myconciergeandroid.R;
 import com.tsaravan9.myconciergeandroid.models.Building;
+import com.tsaravan9.myconciergeandroid.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
