@@ -95,23 +95,24 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getProfilePicData() {
-        Log.d("proPicImage", loggedInUser.getProPic());
-        StorageReference mImageRef = storage.getReference(loggedInUser.getProPic());
-        final long ONE_MEGABYTE = 1024 * 1024;
-        mImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                DisplayMetrics dm = new DisplayMetrics();
-                context.getWindowManager().getDefaultDisplay().getMetrics(dm);
-                binding.proPicDisplay.setImageBitmap(bm);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
+        if (!loggedInUser.getProPic().isEmpty()) {
+            StorageReference mImageRef = storage.getReference(loggedInUser.getProPic());
+            final long ONE_MEGABYTE = 1024 * 1024;
+            mImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    DisplayMetrics dm = new DisplayMetrics();
+                    context.getWindowManager().getDefaultDisplay().getMetrics(dm);
+                    binding.proPicDisplay.setImageBitmap(bm);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+        }
     }
 
     @Override

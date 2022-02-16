@@ -61,6 +61,15 @@ public class ResidentsListActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "On Changed", Toast.LENGTH_SHORT).show();
                 if (residents != null) {
                     adapter.setResidents(residents);
+                    adapter.setOnItemClickListener(new ResidentAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(User resident) {
+                            ResidentsListActivity.this.usersDBRepository.currentResident = resident.getEmail();
+                            Intent intent = new Intent(ResidentsListActivity.this, EnterPackageDetailsActivity.class);
+                            //put extras
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
         });
@@ -77,16 +86,6 @@ public class ResidentsListActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
 //            }
 //        }).attachToRecyclerView(recyclerView);
-
-        adapter.setOnItemClickListener(new ResidentAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(User resident) {
-                ResidentsListActivity.this.usersDBRepository.currentResident = resident.getEmail();
-                Intent intent = new Intent(ResidentsListActivity.this, EnterPackageDetailsActivity.class);
-                //put extras
-                startActivity(intent);
-            }
-        });
     }
 
     private void LogOutClicked() {

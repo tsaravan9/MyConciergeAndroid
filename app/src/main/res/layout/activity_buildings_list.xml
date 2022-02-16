@@ -6,10 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".views.admin.BuildingsListActivity">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buildings_recycler_view"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/buildings_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem=""/>
+        tools:listitem=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
