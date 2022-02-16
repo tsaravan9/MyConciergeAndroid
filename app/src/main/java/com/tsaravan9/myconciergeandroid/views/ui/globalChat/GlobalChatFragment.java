@@ -86,7 +86,6 @@ public class GlobalChatFragment extends Fragment implements View.OnClickListener
                     text, System.currentTimeMillis());
             this.usersViewModel.addTextToChat(newText);
             Toast.makeText(this.getContext(), "Message Sent!", Toast.LENGTH_SHORT).show();
-            Log.d("chatttt", this.binding.tvChat.getText().toString());
             this.binding.etSendMsg.setText("");
         } else {
             Toast.makeText(this.getContext(), "Please provide correct inputs", Toast.LENGTH_SHORT).show();

@@ -65,7 +65,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(List<Delivery> deliveries) {
                 for (Delivery delivery : deliveries) {
-                    Log.d("testMe", delivery.toString());
                     if (delivery.getVisitor()) {
                         delivery.setAccepted(true);
                         usersViewModel.updateDelivery(delivery);
