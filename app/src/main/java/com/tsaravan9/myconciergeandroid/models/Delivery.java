@@ -5,11 +5,11 @@ import com.google.firebase.firestore.PropertyName;
 public class Delivery {
     private String name;
     private String description;
-    private Boolean visitor;
-    private Boolean accepted;
+    private boolean visitor;
+    private boolean accepted;
     private Long enteredAt;
 
-    public Delivery(String name, String description, Boolean isVisitor, Long enteredAt) {
+    public Delivery(String name, String description, boolean isVisitor, Long enteredAt) {
         this.name = name;
         this.description = description;
         this.visitor = isVisitor;
@@ -21,11 +21,11 @@ public class Delivery {
 
     }
 
-    public Boolean getAccepted() {
+    public boolean getAccepted() {
         return accepted;
     }
 
-    public void setAccepted(Boolean accepted) {
+    public void setAccepted(boolean accepted) {
         this.accepted = accepted;
     }
 
@@ -45,11 +45,11 @@ public class Delivery {
         this.description = description;
     }
 
-    public Boolean getVisitor() {
+    public boolean getVisitor() {
         return visitor;
     }
 
-    public void setVisitor(Boolean visitor) {
+    public void setVisitor(boolean visitor) {
         this.visitor = visitor;
     }
 
