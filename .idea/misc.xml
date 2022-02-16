@@ -10,18 +10,19 @@
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.1609375" />
         <entry key="app/src/main/res/layout/activity_enter_package_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_global_chat.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_log.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_log_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_post_announcements.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_qractivity.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_residents_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/building_item.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/building_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_accept_reject.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_global_chat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/resident_item.xml" value="0.1" />
         <entry key="app/src/main/res/menu/admin_resident_list_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/menu.xml" value="0.16666666666666666" />
       </map>
     </option>
   </component>

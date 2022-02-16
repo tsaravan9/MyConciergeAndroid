@@ -408,6 +408,7 @@ public class UsersDBRepository {
                                     DB.collection(COLLECTION_BUILDINGS)
                                             .document(task.getResult().getDocuments().get(0).getId())
                                             .collection(COLLECTION_CHAT)
+                                            .orderBy("sentAt", Query.Direction.ASCENDING)
                                             .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {

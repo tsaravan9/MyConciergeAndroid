@@ -34,6 +34,7 @@ public class GlobalChatFragment extends Fragment implements View.OnClickListener
     private List<Text> texts2 = new ArrayList<>();
     private Activity context;
     private User loggedInUser;
+    private boolean flag = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +57,12 @@ public class GlobalChatFragment extends Fragment implements View.OnClickListener
                 if (texts != null) {
 //                    setTexts(texts);
                     Log.d("countHere", "" + texts.size());
-                    texts2 = texts;
+                    if (!flag){
+                        texts2 = texts;
+                    }
+                    else{
+                        texts2.addAll(texts);
+                    }
                     prepareChat();
                 }
             }
@@ -79,6 +85,7 @@ public class GlobalChatFragment extends Fragment implements View.OnClickListener
         }
 
         if (validData) {
+            flag = true;
             Text newText = new Text(loggedInUser.getFirstname() + " " + loggedInUser.getLastname(),
                     text, System.currentTimeMillis());
             this.usersViewModel.addTextToChat(newText);
@@ -91,7 +98,6 @@ public class GlobalChatFragment extends Fragment implements View.OnClickListener
 
     private void prepareChat() {
         if (texts2 != null) {
-            this.sort(this.texts2);
             String chat = "\n";
             for (Text text : texts2) {
                 chat = prepareText(chat, text);
@@ -100,11 +106,11 @@ public class GlobalChatFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    private void sort(List<Text> texts) {
-        texts.sort((o1, o2)
-                -> o1.getSentAt().compareTo(
-                o2.getSentAt()));
-    }
+//    private void sort(List<Text> texts) {
+//        texts.sort((o1, o2)
+//                -> o1.getSentAt().compareTo(
+//                o2.getSentAt()));
+//    }
 
     private String prepareText(String chat, Text text) {
         chat = chat + "\n" + text.getSender() + "\n";
